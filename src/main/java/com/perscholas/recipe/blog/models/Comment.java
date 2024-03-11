@@ -1,12 +1,10 @@
 package com.perscholas.recipe.blog.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,9 +14,20 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long user_id;
-    private Long recipe_id;
+    @Column(nullable = false)
     private String comment_text;
+    @Column(updatable = false, nullable = false)
     private Date timestamp;
+    @Column(insertable = false)
+    private LocalDateTime lastModified;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+    @ManyToOne
+    @JoinColumn(name="recipe_id")
+    private Recipe recipe;
 
 }
