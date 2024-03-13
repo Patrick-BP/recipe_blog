@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -41,6 +42,8 @@ public class AuthenticationService {
 
 
     public ResponseEntity<String>  registerUser(String name, String email, String password){
+       Optional<User> findUser = userRepository.findUserByEmail(email);
+       if (findUser.isPresent()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exist");
         try {
             String encodedPassword = passwordEncoder.encode(password);
             Role userRole = roleRepository.findByAuthority("USER").get();
