@@ -3,8 +3,6 @@ import RecipeBlock from './RecipeBlock'
 
 
 
-
-
 function Home() {
     let [recipes, setRecipes] = useState([]);
 

@@ -31,7 +31,7 @@ public class RecipeBlogApplication {
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);
 
-			User admin = new User("paul", "pauls@gmail.com", passwordEncoder.encode("password"), roles);
+			User admin = new User("admin", "admin@gmail.com", passwordEncoder.encode("password"), roles);
 
 			userRepository.save(admin);
 		};
