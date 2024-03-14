@@ -14,17 +14,23 @@ const navigate = useNavigate();
 const handleSubmit =async(event)=>{
     event.preventDefault()
     try {
-    await axios.post("/auth/register",input)
-    .then(res=>{
-        toast.success('Account created');
-        setTimeout(()=>navigate("/"), 4000)
-    }).catch(err=>{
-        console.log(err);
-    })
+   const response = await axios.post("/auth/register", input)
+
+   console.log(response.data);
+   toast.success(response.data,{
+            position: "top-center",
+            autoClose: 1000,
+            onClose: () => {
+              navigate("/");
+            },
+        });
     
-    setInput({name:"", email:"", password:""});
+    
     }catch(error){
-        toast.error('Something went wrong');
+        toast.error(error.response.data,{
+                    position: "top-center",
+                    autoClose: 3000,
+        });
     }
 }
 const handleChanges = (e)=>{

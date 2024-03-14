@@ -19,6 +19,8 @@ function Home() {
     useEffect(()=>{
 fetchRecipes();
     },[])
+
+   
     return (
         <>
         <section className="section lb text-muted">

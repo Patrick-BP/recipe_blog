@@ -34,8 +34,8 @@ public class UserController {
        return usersList;
     }
     @PostMapping("/auth/register")
-    public void createUser(@RequestBody RegistrationDTO user){
-        authenticationService.registerUser(user.getName(), user.getEmail(), user.getPassword());
+    public ResponseEntity<String> createUser(@RequestBody RegistrationDTO user){
+       return authenticationService.registerUser(user.getName(), user.getEmail(), user.getPassword());
     }
 
     @PostMapping("/auth/login")

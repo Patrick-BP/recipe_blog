@@ -1,7 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { logout } from '../redux/authSlice'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 function Nav() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const logoutFunc = ()=>{
+        dispatch(logout())
+        navigate("/")
+    }
     return (
         <header className="header">
         <div className="container">
@@ -19,7 +29,7 @@ function Nav() {
                         </li>
                         
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Logout</Link>
+                            <button className="btn" onClick={logoutFunc} >Logout</button>
                         </li>  
                     </ul>
                 </div>

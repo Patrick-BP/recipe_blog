@@ -42,17 +42,18 @@ public class AuthenticationService {
 
 
     public ResponseEntity<String>  registerUser(String name, String email, String password){
-       Optional<User> findUser = userRepository.findUserByEmail(email);
-       if (findUser.isPresent()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exist");
+       boolean findUser = userRepository.existsByEmail(email);
+
+       if (findUser) {return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exist");}
         try {
             String encodedPassword = passwordEncoder.encode(password);
             Role userRole = roleRepository.findByAuthority("USER").get();
             Set<Role> authorities = new HashSet<>();
             authorities.add(userRole);
             User savedUser = userRepository.save(new User(name, email, encodedPassword, authorities));
-            return ResponseEntity.ok("Account Created Successfully");
+            return ResponseEntity.ok().body("Account Created Successfully");
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(500).body("Something went wrong");
         }
     }
 
