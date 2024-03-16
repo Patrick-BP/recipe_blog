@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 const initialState = {
     
     user:"",
@@ -19,6 +21,8 @@ export const signInUser = createAsyncThunk('signinuser', async(body)=>{
     })
     return await res.json();
 })
+
+
 
 const authSlice = createSlice({
     name:"user",
@@ -62,7 +66,10 @@ const authSlice = createSlice({
               .addCase(signInUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-              });
+              });          
+             
+
+              
           },
     
   

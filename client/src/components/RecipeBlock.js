@@ -1,18 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios';
 
-function RecipeBlock({data}) {
-    let [recipe, setRecipe] = useState(data);
+axios.defaults.baseURL = 'http://localhost:8098/api/recipe';
+
+function RecipeBlock({recipes, categoryList, onDelete, onEdit}) {
+    let loginUser = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+ 
+ 
     return (
-        <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12 mb-5">
+
+        <div className="container">
+                <div className="row grid-style">
+                  {recipes && recipes.map(recipe =>{
+                    return  (
+        <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12 mb-5" key={recipe.id}>
         <div className="blog-box">
             <div className="post-media">
-                <a href="#" title="">    
+                <Link to="#" title="">    
                     <span className="detail veg">Veg</span>
                     <img src={recipe.image} alt="" className="img-fluid"/>
                     <div className="hovereffect"></div>
-                </a>
+                </Link>
             </div>
 
             <div className="blog-meta big-meta">
@@ -25,11 +37,43 @@ function RecipeBlock({data}) {
                 </div>
                 <h4><Link to="singlerecipe" title="">{recipe.title}</Link></h4>
                 <p>{recipe.description.slice(0,100)}...</p>
-                <small><a href="#" title="">18 July, 2017</a></small>
-                <small><a href="#" title="">by Matilda</a></small>
+                <div className='d-flex justify-content-between'>
+                    <div>
+                        <small><Link to="#" title="">{recipe.createdAt.slice(0,10)}</Link></small>
+                        <small><Link to="#" title="">by {recipe.user_name}</Link></small>
+                    </div>
+                  {recipe.user_id === loginUser.id &&  <div className='d-flex gap-2 '>
+                        <span className=''style={{cursor:"pointer"}}><i className="bi bi-pencil" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit" onClick={()=>onEdit(recipe)}></i></span>
+                        <span style={{cursor:"pointer"}} data-target="#deleteModal" data-toggle="modal" onClick={()=>onDelete(recipe)}><i className="bi bi-trash"></i></span>
+                        
+                    </div>}
+                </div>
+                
             </div>
         </div>
     </div>
+                    )
+                  })}  
+               
+                
+                </div>
+                
+                <hr className="invis"/>
+
+                <div className="row">
+                    <div className="col-md-12 text-center">
+                        <nav aria-label="Page navigation">
+                            <ul className="pagination justify-content-center">
+                            
+                                <li className="page-item">
+                                    <Link className="page-link" to="#">Load More</Link>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+    
     )
 }
 

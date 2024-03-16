@@ -1,11 +1,10 @@
 package com.perscholas.recipe.blog.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -14,6 +13,8 @@ public class Follower {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long follower_id;
-    private Long following_id;
+    private Long user_id;
+    @OneToMany
+    @JoinColumn(name = "following_id", nullable = false)
+    private List<User> following;
 }

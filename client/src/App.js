@@ -1,5 +1,5 @@
 import './App.css';
-import {redirect, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './pages/Layout';

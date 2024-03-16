@@ -31,11 +31,10 @@ public class User implements UserDetails {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "user" )
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
     private List<Recipe> recipeList;
 
-    @OneToMany(mappedBy = "user")
-    private List<Comment> commentList;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -99,7 +98,6 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", createdAt=" + createdAt +
                 ", recipeList=" + recipeList +
-                ", commentList=" + commentList +
                 ", authorities=" + authorities +
                 '}';
     }
