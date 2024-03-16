@@ -127,7 +127,90 @@ function Home() {
         <>
         <ToastContainer />
         <section className="section lb text-muted">
+        
             <RecipeBlock recipes={recipes} categoriesList ={categoryList} onDelete={handleDelete} onEdit={handleEdit}/>
+                    {/* <!--Add new Recipe Modal --> */}
+                    <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h1 className="modal-title fs-5" id="staticBackdropLabel" >Add a New Recipe</h1>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                
+                                <form className=" g-3 needs-validation text-black" onSubmit={newRecipeSubmit} noValidate>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom01" className="form-label">Title</label>
+                                                            <input type="text" className="form-control" id="validationCustom01" name="title" onChange={handleChanges}  value={recipeInput.title} required/>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide a Title
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom02" className="form-label">Image (url)</label>
+                                                            <input type="url" className="form-control" id="validationCustom02" name="image" onChange={handleChanges} value={recipeInput.image} required/>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide an url format to the image
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom03" className="form-label">Description</label>
+                                                            <textarea type="text" className="form-control" id="validationCustom03" name="description" onChange={handleChanges} value={recipeInput.description} required/>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide a Description
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom04" className="form-label">Instructions</label>
+                                                            <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={recipeInput.instructions} required/>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide a Instructions
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom05" className="form-label">Category</label>
+                                                            <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={(e)=>handleChangescateg(e)} value={category.name} required>
+                                                               <option >Select a category</option>
+                                                                {categories && categories.map((categ,index)=>{
+                                                                    return <option key={categ.id} value={categ.id}>{categ.name}</option>
+                                                                })}
+                                                                
+                                                                
+                                                            </select>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide a category
+                                                            </div>
+                                                        </div>
+                                                
+                                                            <div className="modal-footer border-top-0">
+                                                                <button type="submit" className="btn text-light">Save</button>
+                                                                <button type="button" className="btn text-light" data-bs-dismiss="modal">Close</button>
+                                                                
+                                                            </div>
+                                                </form>
+                                </div>
+                                
+                                </div>
+                            </div>
+                            </div>
+
+
             {/* <!--Delete Modal --> */}
             <div className="modal fade" id="deleteModal">
                             <div className="modal-dialog">

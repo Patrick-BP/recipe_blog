@@ -110,8 +110,8 @@ function Nav() {
 
                 </div>
                    
-                    {/* <!-- Modal --> */}
-                    <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    {/* <!--Add new Recipe Modal --> */}
+                    {/* <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
                                 <div className="modal-header">
@@ -189,7 +189,7 @@ function Nav() {
                                 
                                 </div>
                             </div>
-                            </div>
+                            </div> */}
                 </div>
             </nav>
         </div>

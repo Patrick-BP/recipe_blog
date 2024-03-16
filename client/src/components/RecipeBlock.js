@@ -14,6 +14,7 @@ function RecipeBlock({recipes, categoryList, onDelete, onEdit}) {
     return (
 
         <div className="container">
+        <button className="page-link mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Post a new Recipe</button>
                 <div className="row grid-style">
                   {recipes && recipes.map(recipe =>{
                     return  (
