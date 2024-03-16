@@ -17,8 +17,9 @@ function Home() {
     
     let [recipes, setRecipes] = useState([]);
     const[recipeToDelete, setRecipeToDelete] = useState(null);
-    const[recipeToEdit, setRecipeToEdit] = useState({title:"", image:"", description:"", instructions:"", category:""});
+    const[recipeToEdit, setRecipeToEdit] = useState({title:"", image:"", description:"", instructions:"", category:{id:"",name:""}});
     const [categoryList, setCategoryList] = useState([])
+    const [category, setCategory] =useState({id:"", name:""});
 
     const fetchRecipes = async()=>{
         try{
@@ -77,14 +78,23 @@ function Home() {
 
    const handleEdit =(recipe)=>{
     setRecipeToEdit(recipe);
+    
    }
     const handleChanges = (event)=>{
-        setRecipeToEdit(prev=>({...prev, [event.target.name]:event.target.value}))
+        
+        if(event.target.name === "category"){
+            
+            setRecipeToEdit(prev=>({...prev, category:{id:event.target.selectedIndex , name:event.target.options[event.target.selectedIndex].text}}))
+        }else{
+
+            setRecipeToEdit(prev=>({...prev, [event.target.name]:event.target.value}))
+        }
     }
 
 
    const updateRecipeSubmit = (event)=>{
     event.preventDefault()
+    console.log(recipeToEdit);
         axios.put(`/update/recipe` , recipeToEdit,{headers:{ Authorization: `Bearer ${token}`    }})
         .then(res=>{
             fetchRecipes();
@@ -101,6 +111,9 @@ function Home() {
         })
         event.target.classList.add('was-validated')
    }
+   const handleChangescateg = (e)=>{
+    setCategory({id:e.target.selectedIndex , name:e.target.options[e.target.selectedIndex].text})
+}
 
    useEffect(() => {
         
@@ -134,7 +147,7 @@ function Home() {
                             </div>
             </div>
 
-             {/* <!-- Modal --> */}
+             {/* <!--Update Modal --> */}
              <div className="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -187,7 +200,7 @@ function Home() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
-                                                            <select type="text" className="form-select"  id="validationCustom05"  name="category" onChange={handleChanges} value={recipeToEdit.category} required>
+                                                            <select   className="form-select"  id="validationCustom05"  name="category" onChange={handleChanges} value={recipeToEdit.category.name} required>
                                                             <option >Select pizza size</option>
                                                                 {categoryList && categoryList.map((categ,index)=>{
                                                                     return <option key={index} value={categ.id}>{categ.name}</option>

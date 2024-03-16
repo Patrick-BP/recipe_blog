@@ -48,6 +48,7 @@ public class recipeController {
     }
     @PostMapping("/new")
     public ResponseEntity<String> createRecipe(@RequestBody Recipe recipe){
+        System.out.println(recipe);
        return recipeService.createRecipe(recipe);
     }
     @PutMapping("/update/recipe")

@@ -33,7 +33,7 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
     public ResponseEntity<String> updateCategory(Category category){
-        Optional<Category> findCateg = categoryRepository.findById(category.getCategoryId());
+        Optional<Category> findCateg = categoryRepository.findById(category.getId());
         if(findCateg.isPresent()){
             try{
                 Category categ = findCateg.get();

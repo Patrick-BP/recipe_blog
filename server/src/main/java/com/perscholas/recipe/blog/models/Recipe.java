@@ -1,8 +1,7 @@
 package com.perscholas.recipe.blog.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,6 +10,9 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 @Data
 public class Recipe {
     @Id
@@ -33,10 +35,10 @@ public class Recipe {
     private List<Ingredient> ingredientList;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL )
-    private List<Comment> commentList = new ArrayList<>();;
+    private List<Comment> commentList = new ArrayList<>();
 
-
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(updatable = false)

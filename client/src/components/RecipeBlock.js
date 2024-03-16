@@ -21,7 +21,7 @@ function RecipeBlock({recipes, categoryList, onDelete, onEdit}) {
         <div className="blog-box">
             <div className="post-media">
                 <Link to="#" title="">    
-                    <span className="detail veg">Veg</span>
+                    <span className="detail veg">{recipe.category.name}</span>
                     <img src={recipe.image} alt="" className="img-fluid"/>
                     <div className="hovereffect"></div>
                 </Link>

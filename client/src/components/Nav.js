@@ -7,8 +7,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 function Nav() {
-    const [recipeInput, setRecipeInput] = useState({title:"", image:"", description:"", instructions:"", category:""});
-   
+    const [recipeInput, setRecipeInput] = useState({title:"Winter Grain Bowl with Balsamic Dressing", image:"https://pinchofyum.com/cdn-cgi/image/width=680,height=99999,fit=scale-down/wp-content/uploads/Winter-Grain-Bowl.jpg", description:"The BEST Winter Grain Bowl! Roasted root vegetables, earthy grains, dried fruit, dark leafy greens, buttery goat cheese, and lusciously creamy balsamic dressing.", instructions:"his grain bowl is as versatile as it gets."});
+    const [category, setCategory] =useState({id:"", name:""});
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
@@ -23,13 +23,14 @@ function Nav() {
 
     const newRecipeSubmit = (event)=>{
         event.preventDefault()
+       
         if (!event.target.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
           }else{
           try{
-            axios.post('/new',{...recipeInput, user},{
-            headers:{ Authorization: `Bearer ${token}`    },
+            axios.post('/new',{...recipeInput, user, category},{
+            headers:{ Authorization: `Bearer ${token}`},
             
           }).then(response=>{
             
@@ -38,6 +39,7 @@ function Nav() {
                 autoClose: 1000,
                 onClose: () => {
                     setRecipeInput({title:"", image:"", description:"", instructions:""})
+                    navigate("/layout")
                 },
             });
           }).catch(error=>{
@@ -73,6 +75,9 @@ function Nav() {
       setCategories(storedCategories);
     }
       }
+    const handleChangescateg = (e)=>{
+        setCategory({id:e.target.selectedIndex , name:e.target.options[e.target.selectedIndex].text})
+    }
     
     return (
         <header className="header">
@@ -158,10 +163,10 @@ function Nav() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
-                                                            <select type="text" className="form-select" aria-label="Default select example" id="validationCustom05"   name="category" onChange={handleChanges} value={recipeInput.category} required>
-                                                               <option >Select pizza size</option>
+                                                            <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={(e)=>handleChangescateg(e)} value={category.name} required>
+                                                               <option >Select a category</option>
                                                                 {categories && categories.map((categ,index)=>{
-                                                                    return <option key={index} value={categ.id}>{categ.name}</option>
+                                                                    return <option key={categ.id} value={categ.id}>{categ.name}</option>
                                                                 })}
                                                                 
                                                                 

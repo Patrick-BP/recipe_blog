@@ -14,7 +14,5 @@ public class Follower {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long user_id;
-    @OneToMany
-    @JoinColumn(name = "following_id", nullable = false)
-    private List<User> following;
+
 }

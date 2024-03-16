@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +18,7 @@ import org.springframework.stereotype.Service;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
-    private Long categoryId;
+    private Long id;
     private String name;
-
 
 }
