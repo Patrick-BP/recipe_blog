@@ -11,7 +11,7 @@ function RecipeBlock({ recipes, showButton, refresh, onDelete, onEdit }) {
 const Navigate = useNavigate()
 
   const handleClick =(recipe)=>{
-    Navigate('singlerecipe',{state:{recipeData:recipe, recipeList:recipes}})
+    Navigate('singlerecipe',{state:{recipeData:recipe, recipeList:recipes.slice(0,10)}})
   }
 useEffect(()=>{
 

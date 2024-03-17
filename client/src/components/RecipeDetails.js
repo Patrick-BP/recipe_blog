@@ -8,7 +8,7 @@ function RecipeDetails() {
     const location = useLocation();
   const { recipeData, recipeList } = location.state;
   const handleClick =(recipe)=>{
-    Navigate('singlerecipe',{state:{recipeData:recipe, recipeList:recipeList}})
+    
   }
     return (
         < >
