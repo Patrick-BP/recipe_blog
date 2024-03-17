@@ -1,7 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import {  useNavigate } from "react-router-dom";
 
 function RecipeDetails() {
+    const Navigate = useNavigate()
+    const location = useLocation();
+  const { recipeData, recipeList } = location.state;
+  const handleClick =(recipe)=>{
+    Navigate('singlerecipe',{state:{recipeData:recipe, recipeList:recipeList}})
+  }
     return (
         < >
  
@@ -10,15 +18,9 @@ function RecipeDetails() {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i className="fa fa-cutlery bg-red"></i> Blog </h2>
+                        <h2><i className="fa fa-cutlery bg-red"></i> {recipeData.title} </h2>
                     </div>
-                    <div className="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-                            <li className="breadcrumb-item"><Link to="#">Blog</Link></li>
-                            <li className="breadcrumb-item active">Food</li>
-                        </ol>
-                    </div>                    
+                                       
                 </div>
             </div>
         </div>
@@ -26,9 +28,9 @@ function RecipeDetails() {
         <section className="section lb">
             <div className="container"> 
                 <div className="row">
-                    <div className="col-lg-10 offset-lg-1 d-flex justify-content-center">
+                    <div className="col-lg-12  d-flex justify-content-center">
                         
-                        <img src='/assets/upload/banner_06.jpg' alt='' className="img-fluid"/>
+                        <img src={recipeData.image} alt='' className="img-fluid" style={{objectFit:"cover", width:"100%", height:"200px"}}/>
                                                 
                     </div>
                 </div>
@@ -44,16 +46,16 @@ function RecipeDetails() {
                                 <ol className="breadcrumb hidden-xs-down">
                                     <li className="breadcrumb-item"><Link to="#">Home</Link></li>
                                     <li className="breadcrumb-item"><Link to="#">Blog</Link></li>
-                                    <li className="breadcrumb-item active">Quick n Easy Homemade Pizza Recipe</li>
+                                    <li className="breadcrumb-item active">{recipeData.title}</li>
                                 </ol>
 
                                 
 
-                                <h3>Quick n Easy Homemade Pizza Recipe</h3>
+                                <h3>{recipeData.title}</h3>
 
                                 <div className="blog-meta big-meta">
-                                    <small><Link to="single.html" title="">21 July, 2017</Link></small>
-                                    <small><Link to="blog-author.html" title="">by Jessica</Link></small>
+                                    <small><Link to="single.html" title="">{recipeData.createdAt.slice(0, 10)}</Link></small>
+                                    <small><Link to="blog-author.html" title="">by {recipeData.user_name}</Link></small>
                                     <small><Link to="#" title=""><i className="fa fa-eye"></i> 2344</Link></small>
                                 </div>
 
@@ -61,20 +63,15 @@ function RecipeDetails() {
                             </div>
 
                             <div className="blog-content">  
-                                <p>In lobortis pharetra mattis. Morbi nec nibh iaculis, <Link to="#">bibendum augue a</Link>, ultrices nulla. Nunc velit ante, lacinia id tincidunt eget, faucibus nec nisl. In mauris purus, bibendum et gravida dignissim, venenatis commodo lacus. Duis consectetur quis nisi nec accumsan. Pellentesque enim velit, ut tempor turpis. Mauris felis neque, egestas in lobortis et,iaculis at nunc ac, rhoncus sagittis ipsum. </p>
+                                <p>{recipeData.description}</p>
 
-                                <h3><strong>Maecenas non convallis quam, eu sodales justo. Pellentesque quis lectus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</strong></h3>
+                                <h3><strong>Instructions</strong></h3>
 
-                                <p>Donec nec metus sed leo sollicitudin ornare sed consequat neque. Aliquam iaculis neque quis dui venenatis, eget posuere felis viverra. Ut sit amet feugiat elit, nec elementum velit. Sed eu nisl convallis, efficitur turpis eu, euismod nunc. Proin neque enim, malesuada non lobortis nec, facilisis et lectus. Ie consectetur. Nam eget neque ac ex fringilla dignissim eu ac est. Nunc et nisl vel odio posuere. </p>
-
-                                <p>Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum. Maecenas dapibus neque sodales nulla finibus volutpat. Integer pulvinar massa vitae ultrices posuere. Proin ut tempor turpis. Mauris felis neque, egestas in lobortis et, sodales non ante. Ut vestibulum libero quis luctus tempus. Nullam eget dignissim massa. Vivamus id condimentum orci. Nunc ac sem urna. Aliquam et hendrerit nisl massa nunc. </p>
-
-                                <h3><strong>Nam non velit est. Sed lobortis arcu vitae nunc molestie consectetur. Nam eget neque ac ex fringilla dignissim eu ac est. Nunc et nisl vel odio posuere. </strong></h3>
+                                <p>{recipeData.instructions}</p>
 
                                 <p>Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum. Maecenas dapibus neque sodales nulla finibus volutpat. Integer pulvinar massa vitae ultrices posuere. Proin ut tempor turpis. Mauris felis neque, egestas in lobortis et, sodales non ante. Ut vestibulum libero quis luctus tempus. Nullam eget dignissim massa. Vivamus id condimentum orci. Nunc ac sem urna. Aliquam et hendrerit nisl massa nunc. </p>
 
-                                <p>Morbi pharetra porta consequat. Aenean et diam sapien. <Link to="#">Interdum et malesuada</Link> fames ac ante ipsum primis in faucibus. Pellentesque dictum ligula iaculis, feugiat metus eu, sollicitudin ex. Quisque eu ullamcorper ligula. In vel ex ac purus finibus viverra. Maecenas pretium lobortis turpis. Fusce lacinia nisi in tortor massa nunc.</p>
-                            </div>
+                                   </div>
 
                         
 
@@ -144,9 +141,7 @@ function RecipeDetails() {
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <form className="form-wrapper">
-                                            <input type="text" className="form-control" placeholder="Your name"/>
-                                            <input type="text" className="form-control" placeholder="Email address"/>
-                                            <input type="text" className="form-control" placeholder="Website"/>
+                                            
                                             <textarea className="form-control" placeholder="Your comment"></textarea>
                                             <button type="submit" className="btn btn-primary">Submit Comment</button>
                                         </form>
@@ -169,49 +164,26 @@ function RecipeDetails() {
                                 <h2 className="widget-title">Recent Posts</h2>
                                 <div className="blog-list-widget">
                                     <div className="list-group">
-                                        <Link to="single.html" className="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div className="w-100 justify-content-between">
-                                                <img src="upload/blog_square_14.jpg" alt="" className="img-fluid float-left"/>
-                                                <h5 className="mb-1">5 Beautiful buildings you need to before dying</h5>
-                                                <small>12 Jan, 2016</small>
-                                            </div>
-                                        </Link>
 
-                                        <Link to="single.html" className="list-group-item list-group-item-action flex-column align-items-start">
+                                        {recipeList && recipeList.map(recipe=>{
+                                            return <span onClick={handleClick} className="list-group-item list-group-item-action flex-column align-items-start "style={{cursor:"pointer"}}>
                                             <div className="w-100 justify-content-between">
-                                                <img src="upload/blog_square_12.jpg" alt="" className="img-fluid float-left"/>
-                                                <h5 className="mb-1">Let's make an introduction for creative life</h5>
-                                                <small>11 Jan, 2016</small>
+                                                <img src={recipe.image} alt="" className="img-fluid float-left"/>
+                                                <h5 className="mb-1">{recipe.title}</h5>
+                                                <small>{recipe.createdAt.slice(0, 10)}</small>
                                             </div>
-                                        </Link>
+                                        </span>
+                                        })}
+                                        
 
-                                        <Link to="single.html" className="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div className="w-100 last-item justify-content-between">
-                                                <img src="upload/blog_square_11.jpg" alt="" className="img-fluid float-left"/>
-                                                <h5 className="mb-1">Did you see the most beautiful sea in the world?</h5>
-                                                <small>07 Jan, 2016</small>
-                                            </div>
-                                        </Link>
+                                        
                                     </div>
                                 </div>
                             </div>
 
                          
 
-                            <div className="widget">
-                                <h2 className="widget-title">Popular Categories</h2>
-                                <div className="link-widget">
-                                    <ul>
-                                        <li><Link to="#">Fahsion <span>(21)</span></Link></li>
-                                        <li><Link to="#">Lifestyle <span>(15)</span></Link></li>
-                                        <li><Link to="#">Art & Design <span>(31)</span></Link></li>
-                                        <li><Link to="#">Health Beauty <span>(22)</span></Link></li>
-                                        <li><Link to="#">Clothing <span>(66)</span></Link></li>
-                                        <li><Link to="#">Entertaintment <span>(11)</span></Link></li>
-                                        <li><Link to="#">Food & Drink <span>(87)</span></Link></li>
-                                    </ul>
-                                </div>
-                            </div>
+                        
                         </div>
                     </div>
                 </div>

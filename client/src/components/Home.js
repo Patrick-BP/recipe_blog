@@ -17,7 +17,7 @@ function Home() {
     
     let [recipes, setRecipes] = useState([]);
     const[recipeToDelete, setRecipeToDelete] = useState(null);
-    const[recipeToEdit, setRecipeToEdit] = useState({title:"", image:"", description:"", instructions:"", category:{id:"",name:""}});
+    const[recipeToEdit, setRecipeToEdit] = useState({title:"Banana-chip chocolate cake recipe", image:"https://html.design/demo/recipelist/upload/blog_square_05.jpg", description:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", instructions:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", category:{id:"",name:""}});
     const [categoryList, setCategoryList] = useState([])
     const [category, setCategory] =useState({id:"", name:""});
 
@@ -94,7 +94,7 @@ function Home() {
 
    const updateRecipeSubmit = (event)=>{
     event.preventDefault()
-    console.log(recipeToEdit);
+   
         axios.put(`/update/recipe` , recipeToEdit,{headers:{ Authorization: `Bearer ${token}`    }})
         .then(res=>{
             fetchRecipes();
@@ -118,17 +118,95 @@ function Home() {
    useEffect(() => {
         
     let storedCategories = JSON.parse(localStorage.getItem('categories')) ;
-    if (storedCategories) {
+   
      setCategoryList(storedCategories);
-   }
+    
+   
    },[]); 
-  
+
+   const newRecipeSubmit = (event)=>{
+   
+        event.preventDefault()
+       
+        if (!event.target.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }else{
+          try{
+            axios.post('/new',{...recipeToEdit, user},{
+            headers:{ Authorization: `Bearer ${token}`},
+            
+          }).then(response=>{
+            
+            toast.success(response.data,{
+                position: "top-center",
+                autoClose: 1000,
+                onClose: () => {
+                    setRecipeToEdit({title:"", image:"", description:"", instructions:"", category:{id:"", name:""}})
+                    fetchRecipes();
+                },
+            });
+          }).catch(error=>{
+            toast.error(error.response.data,{
+                position: "top-center",
+                autoClose: 3000,
+    });
+          })
+          }catch(error){
+            console.log(error);
+          }
+          
+          }
+    event.target.classList.add('was-validated')
+          
+    }
+    const refreshData = ()=>{
+        let storedCategories = JSON.parse(localStorage.getItem('categories'));
+    if (storedCategories) {
+        setCategoryList(storedCategories);
+        
+    }
+
+      }
+      const [filter, setFilter] = useState("")
+      const [searchResult, setSearchResult] = useState(recipes)
+    
+    const search = (event)=>{
+        setFilter(event.target.value)
+    }
+    
+      useEffect(()=>{
+ 
+        if(filter == "all" || filter == ""){
+            setSearchResult(recipes);
+        }else{
+           
+           let newRecipeList = recipes.filter(res => res.category.id == filter)
+            setSearchResult(newRecipeList);  
+        }
+        
+        
+    },[filter])
+    
     return (
         <>
         <ToastContainer />
         <section className="section lb text-muted">
         
-            <RecipeBlock recipes={recipes} categoriesList ={categoryList} onDelete={handleDelete} onEdit={handleEdit}/>
+          
+          <div className='container mb-5 pt-5'>
+          <select type="text" className="form-select fs-2   " aria-label="Default select example"  id="validationCustom05"   name="category" onChange={search}  required>
+                       <option value="all">search By category</option>
+                       <option value="all">All Recipes</option>
+                       {categoryList && categoryList.map((categ,index)=>{
+                                    return <option key={index} value={categ.id}>{categ.name}</option>
+                        })}
+                                                              
+                                                              
+          </select>
+          </div>
+        
+            <RecipeBlock recipes={searchResult} showButton ={true} categoriess={categoryList} refresh={refreshData} onDelete={handleDelete} onEdit={handleEdit}/>
                     {/* <!--Add new Recipe Modal --> */}
                     <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
@@ -142,7 +220,7 @@ function Home() {
                                 <form className=" g-3 needs-validation text-black" onSubmit={newRecipeSubmit} noValidate>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom01" className="form-label">Title</label>
-                                                            <input type="text" className="form-control" id="validationCustom01" name="title" onChange={handleChanges}  value={recipeInput.title} required/>
+                                                            <input type="text" className="form-control" id="validationCustom01" name="title" onChange={handleChanges}  value={recipeToEdit.title} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
@@ -152,7 +230,7 @@ function Home() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom02" className="form-label">Image (url)</label>
-                                                            <input type="url" className="form-control" id="validationCustom02" name="image" onChange={handleChanges} value={recipeInput.image} required/>
+                                                            <input type="url" className="form-control" id="validationCustom02" name="image" onChange={handleChanges} value={recipeToEdit.image} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
@@ -162,7 +240,7 @@ function Home() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom03" className="form-label">Description</label>
-                                                            <textarea type="text" className="form-control" id="validationCustom03" name="description" onChange={handleChanges} value={recipeInput.description} required/>
+                                                            <textarea type="text" className="form-control" id="validationCustom03" name="description" onChange={handleChanges} value={recipeToEdit.description} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
@@ -172,7 +250,7 @@ function Home() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom04" className="form-label">Instructions</label>
-                                                            <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={recipeInput.instructions} required/>
+                                                            <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={recipeToEdit.instructions} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
@@ -182,10 +260,10 @@ function Home() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
-                                                            <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={(e)=>handleChangescateg(e)} value={category.name} required>
+                                                            <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={handleChanges}  required>
                                                                <option >Select a category</option>
-                                                                {categories && categories.map((categ,index)=>{
-                                                                    return <option key={categ.id} value={categ.id}>{categ.name}</option>
+                                                                {categoryList && categoryList.map((categ,index)=>{
+                                                                    return <option key={index} value={categ.id}>{categ.name}</option>
                                                                 })}
                                                                 
                                                                 
@@ -283,8 +361,8 @@ function Home() {
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
-                                                            <select   className="form-select"  id="validationCustom05"  name="category" onChange={handleChanges} value={recipeToEdit.category.name} required>
-                                                            <option >Select pizza size</option>
+                                                            <select   className="form-select"  id="validationCustom05"  name="category" onChange={handleChanges}  required>
+                                                            <option >Select a category</option>
                                                                 {categoryList && categoryList.map((categ,index)=>{
                                                                     return <option key={index} value={categ.id}>{categ.name}</option>
                                                                 })}

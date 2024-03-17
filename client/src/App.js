@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './pages/Layout';
 import Home from './components/Home';
+import Feeds from './components/Feeds';
 import RecipeDetails from './components/RecipeDetails';
 import LayoutAdmin from './pages/LayoutAdmin';
 
@@ -14,7 +15,8 @@ function App() {
         <Route index element={<Login/>} /> 
         <Route path='register' element={<Register/>} /> 
         <Route path='layout' element={<Layout/>} > 
-            <Route index element={<Home/>}/>
+            <Route index element={<Feeds/>}/>
+            <Route path='home' element={<Home/>}/>
             <Route path='singlerecipe' element={<RecipeDetails/>}/>
         
         </Route>

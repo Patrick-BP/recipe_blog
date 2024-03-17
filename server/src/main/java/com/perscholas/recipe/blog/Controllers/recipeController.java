@@ -24,9 +24,21 @@ public class recipeController {
         return recipeService.getRecipeById(id);
     }
     @GetMapping("/all")
-    public List<Recipe> getAllRecipes(){
-        List<Recipe> recipesList = recipeService.getAllRecipes();
-        return recipesList;
+    public List<RecipeResponseDTO> getAllRecipes(){
+       return recipeService.getAllRecipes().stream().map(recipe2->{
+            RecipeResponseDTO recipeDTO = new RecipeResponseDTO();
+            recipeDTO.setId(recipe2.getId());
+            recipeDTO.setTitle(recipe2.getTitle());
+            recipeDTO.setDescription(recipe2.getDescription());
+            recipeDTO.setInstructions(recipe2.getInstructions());
+            recipeDTO.setImage(recipe2.getImage());
+            recipeDTO.setUser_id(recipe2.getUser().getId());
+            recipeDTO.setUser_name(recipe2.getUser().getName());
+            recipeDTO.setCreatedAt(recipe2.getCreatedAt());
+            recipeDTO.setCategory(recipe2.getCategory());
+            return recipeDTO;
+        }).collect(Collectors.toList());
+
     }
 
     @GetMapping("/user/{id}")

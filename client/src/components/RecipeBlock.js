@@ -1,81 +1,130 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import axios from 'axios';
+import React, { useEffect } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:8098/api/recipe';
+axios.defaults.baseURL = "http://localhost:8098/api/recipe";
 
-function RecipeBlock({recipes, categoryList, onDelete, onEdit}) {
-    let loginUser = JSON.parse(localStorage.getItem("user"));
-    const token = localStorage.getItem("token");
+function RecipeBlock({ recipes, showButton, refresh, onDelete, onEdit }) {
+  let loginUser = JSON.parse(localStorage.getItem("user"));
+  const [isFeedsPage, SetIsFeedPage] = useState(showButton)
+const Navigate = useNavigate()
 
- 
- 
-    return (
+  const handleClick =(recipe)=>{
+    Navigate('singlerecipe',{state:{recipeData:recipe, recipeList:recipes}})
+  }
+useEffect(()=>{
 
-        <div className="container">
-        <button className="page-link mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Post a new Recipe</button>
-                <div className="row grid-style">
-                  {recipes && recipes.map(recipe =>{
-                    return  (
-        <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12 mb-5" key={recipe.id}>
-        <div className="blog-box">
-            <div className="post-media">
-                <Link to="#" title="">    
-                    <span className="detail veg">{recipe.category.name}</span>
-                    <img src={recipe.image} alt="" className="img-fluid"/>
-                    <div className="hovereffect"></div>
-                </Link>
+},[recipes])
+  return (
+    <div className="container">
+
+        <div className="d-flex justify-content-between">
+            <div>
+            {isFeedsPage === false ?<h1>Feeds</h1> :<button
+        className="page-link mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        onClick={() => refresh()}
+      >
+        Post a new Recipe
+      </button> } 
             </div>
-
-            <div className="blog-meta big-meta">
-                <div className="rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                </div>
-                <h4><Link to="singlerecipe" title="">{recipe.title}</Link></h4>
-                <p>{recipe.description.slice(0,100)}...</p>
-                <div className='d-flex justify-content-between'>
-                    <div>
-                        <small><Link to="#" title="">{recipe.createdAt.slice(0,10)}</Link></small>
-                        <small><Link to="#" title="">by {recipe.user_name}</Link></small>
-                    </div>
-                  {recipe.user_id === loginUser.id &&  <div className='d-flex gap-2 '>
-                        <span className=''style={{cursor:"pointer"}}><i className="bi bi-pencil" data-bs-toggle="modal" data-bs-target="#staticBackdropEdit" onClick={()=>onEdit(recipe)}></i></span>
-                        <span style={{cursor:"pointer"}} data-target="#deleteModal" data-toggle="modal" onClick={()=>onDelete(recipe)}><i className="bi bi-trash"></i></span>
-                        
-                    </div>}
-                </div>
-                
-            </div>
+      
         </div>
-    </div>
-                    )
-                  })}  
-               
-                
-                </div>
-                
-                <hr className="invis"/>
+     
+      
+      <div className="row grid-style">
+        {recipes &&  recipes.map((recipe) => {
+            return (
+              <div
+                className="col-lg-3 col-md-6 col-sm-12 col-xs-12 mb-5"
+                key={recipe.id}
+              >
+                <div className="blog-box">
+                  <div className="post-media">
+                    <Link to="#" title="">
+                      <span className="detail veg">{recipe.category.name}</span>
+                      <img src={recipe.image} alt="" className="img-fluid" />
+                      <div className="hovereffect"></div>
+                    </Link>
+                  </div>
 
-                <div className="row">
-                    <div className="col-md-12 text-center">
-                        <nav aria-label="Page navigation">
-                            <ul className="pagination justify-content-center">
-                            
-                                <li className="page-item">
-                                    <Link className="page-link" to="#">Load More</Link>
-                                </li>
-                            </ul>
-                        </nav>
+                  <div className="blog-meta big-meta">
+                    <div className="rating">
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
                     </div>
+                    <h4>
+                      <span onClick={()=>handleClick(recipe)} title="" style={{cursor:"pointer"}}>
+                        {recipe.title}
+                      </span>
+                    </h4>
+                    <p>{recipe.description.slice(0, 100)}...</p>
+                    <div className="d-flex justify-content-between">
+                      <div>
+                        <small>
+                          <Link to="#" title="">
+                            {recipe.createdAt.slice(0, 10)}
+                          </Link>
+                        </small>
+                        <small>
+                          <Link to="#" title="">
+                            by {recipe.user_name}
+                          </Link>
+                        </small>
+                      </div>
+                      {recipe.user_id === loginUser.id && (
+                        <div className="d-flex gap-2 ">
+                          {showButton && (
+                            <>
+                          <span className="" style={{ cursor: "pointer" }}>
+                            
+                            <i
+                              className="bi bi-pencil"
+                              data-bs-toggle="modal"
+                              data-bs-target="#staticBackdropEdit"
+                              onClick={() => onEdit(recipe)}
+                            ></i>
+                          </span></>)}
+                          <span
+                            style={{ cursor: "pointer" }}
+                            data-target="#deleteModal"
+                            data-toggle="modal"
+                            onClick={() => onDelete(recipe)}
+                          >
+                            <i className="bi bi-trash"></i>
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-            </div>
-    
-    )
+              </div>
+            );
+})}
+      </div>
+
+      <hr className="invis" />
+
+      <div className="row">
+        <div className="col-md-12 text-center">
+          <nav aria-label="Page navigation">
+            <ul className="pagination justify-content-center">
+              <li className="page-item">
+                <Link className="page-link" to="#">
+                  Load More
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default RecipeBlock
+export default RecipeBlock;
