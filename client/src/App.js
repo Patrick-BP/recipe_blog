@@ -6,6 +6,7 @@ import Layout from './pages/Layout';
 import Home from './components/Home';
 import Feeds from './components/Feeds';
 import RecipeDetails from './components/RecipeDetails';
+import RecipeDetails2 from './components/RecipeDetails2';
 import LayoutAdmin from './pages/LayoutAdmin';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route index element={<Feeds/>}/>
             <Route path='home' element={<Home/>}/>
             <Route path='singlerecipe' element={<RecipeDetails/>}/>
+            <Route path='singlerecipe2' element={<RecipeDetails2/>}/>
         
         </Route>
         <Route path='admin' element={<LayoutAdmin/>} > 

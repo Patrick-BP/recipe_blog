@@ -17,9 +17,9 @@ public class Comment {
     @Column(nullable = false)
     private String comment_text;
     @Column(updatable = false, nullable = false)
-    private Date timestamp;
+    private LocalDateTime timestamp = LocalDateTime.now();
     @Column(insertable = false)
-    private LocalDateTime lastModified;
+    private LocalDateTime lastModified = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
