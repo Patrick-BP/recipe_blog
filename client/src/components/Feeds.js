@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import RecipeBlock from './RecipeBlock'
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
@@ -96,17 +95,20 @@ function Feeds() {
  const search = (event)=>{
      setFilter(event.target.value)
  }
+ useEffect(()=>{
+  
+            setSearchResult(recipes);
+        
+    },[])
  
  useEffect(()=>{
- 
-     if(filter == "all" || filter == ""){
+
+     if(filter === "all" || filter === ""){
          setSearchResult(recipes);
      }else{
-        
         let newRecipeList = recipes.filter(res => res.category.id == filter)
-         setSearchResult(newRecipeList);  
+         setSearchResult(newRecipeList);
      }
-     
      
  },[filter])
       

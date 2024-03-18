@@ -24,6 +24,8 @@ export const signInUser = createAsyncThunk('signinuser', async(body)=>{
 
 
 
+
+
 const authSlice = createSlice({
     name:"user",
     initialState,
@@ -32,7 +34,7 @@ const authSlice = createSlice({
             state.jwt = localStorage.getItem('token');
         },
         addUser: (state, action)=>{
-            state.jwt = localStorage.getItem('user');
+            state.user = localStorage.getItem('user');
         },
         logout: (state, action)=>{
             state.jwt = null;

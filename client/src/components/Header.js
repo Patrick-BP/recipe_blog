@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 
 function Header() {
     return (
@@ -7,7 +7,7 @@ function Header() {
         <div className="container" style={{maxWidth: "69rem"}}>
         <div className=' text-light fw-bold' style={{fontSize:"5em",lineHeight: "83px"}}>Foodie Crush</div>
             
-            <p>Each year we've hosted the Best Food Blog Awards, we're astounded at the depth, variety, creativity, and ingenuity of the food blogs nominated..</p>
+            <p> Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum.</p>
         </div>
     </section>
     )
