@@ -1,0 +1,11 @@
+.pagination>.active>a{
+    background-color: #AB0012 !important;
+    border-color: #AB0012 !important;
+}
+
+a:hover, a:focus {
+    color: #fff !important;
+}
+.pagination>li>a:hover{
+    background-color: #AB0012 !important;
+}

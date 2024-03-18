@@ -26,6 +26,7 @@ function Feeds() {
                 headers:{ Authorization: `Bearer ${token}`    }
             });
             setRecipes(response.data.reverse())
+            localStorage.setItem("recipes", JSON.stringify(response.data.reverse()))
            
         }catch(error){
             console.log(error);

@@ -1,18 +1,31 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Pagination from "./Pagination";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8098/api/recipe";
 
 function RecipeBlock({ recipes, showButton, refresh, onDelete, onEdit }) {
+
+  const [loading, setLoading] = useState(false);
+const [currentPage , setCurrentPage] = useState(1);
+const [postPerPage, setPostPerPage] = useState(8);
+
   let loginUser = JSON.parse(localStorage.getItem("user"));
-  const [isFeedsPage, SetIsFeedPage] = useState(showButton)
+  const [isFeedsPage, SetIsFeedPage] = useState(showButton);
 const Navigate = useNavigate()
 
   const handleClick =(recipe)=>{
     Navigate('/layout/singlerecipe',{state:{recipeData:recipe, recipeList:recipes.slice(0,10)}})
   }
+
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfirstPost = indexOfLastPost - postPerPage;
+  const currentPots = recipes.slice(indexOfirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber)=> setCurrentPage(pageNumber)
 
   return (
     <div className="container">
@@ -32,8 +45,8 @@ const Navigate = useNavigate()
         </div>
      
       
-      <div className="row grid-style">
-        {recipes &&  recipes.map((recipe) => {
+      <div className="row grid-style" id="top">
+        {currentPots &&  currentPots.map((recipe) => {
             return (
               <div
                 className="col-lg-3 col-md-6 col-sm-12 col-xs-12 mb-5"
@@ -111,13 +124,11 @@ const Navigate = useNavigate()
       <div className="row">
         <div className="col-md-12 text-center">
           <nav aria-label="Page navigation">
-            <ul className="pagination justify-content-center">
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  Load More
-                </Link>
-              </li>
-            </ul>
+           <Pagination
+            postPerPage = {postPerPage}
+            totalPosts = {recipes.length}
+            paginate={paginate}
+           />
           </nav>
         </div>
       </div>

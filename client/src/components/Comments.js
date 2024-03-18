@@ -1,4 +1,5 @@
-import ReactTimeAgo from 'react-time-ago';
+
+import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 function Comments({commentList}) {
     return ( <>
@@ -14,7 +15,9 @@ function Comments({commentList}) {
                                                     <img src="upload/author.jpg" alt="" className="rounded-circle"/>
                                                 </Link>
                                                 <div className="media-body">
-                                                    <h4 className="media-heading user_name"><small>{comment.createdAt.slice(0, 10)}<ReactTimeAgo date={comment.createdAt.slice(0, 10)} locale="en-US" /></small></h4>
+                                                    <h4 className="media-heading user_name">{comment.user_name}<small><Moment fromNow>{comment.createdAt}</Moment></small>
+                                                    
+                                                    </h4>
                                                     <p>{comment.comment_text}</p>
                                                     
                                                 </div>

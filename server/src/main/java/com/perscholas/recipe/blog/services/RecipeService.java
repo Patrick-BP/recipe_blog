@@ -36,15 +36,20 @@ public class RecipeService {
     }
 
     public ResponseEntity<String> createRecipe(Recipe recipe){
-        Recipe newRecipe = new Recipe();
-        newRecipe.setTitle(recipe.getTitle());
-        newRecipe.setDescription(recipe.getDescription());
-        newRecipe.setInstructions(recipe.getInstructions());
-        newRecipe.setImage(recipe.getImage());
-        newRecipe.setUser(recipe.getUser());
-        newRecipe.setCategory(recipe.getCategory());
-        recipeRepository.save(newRecipe);
-        return ResponseEntity.ok("New Recipe Added");
+        try{
+            Recipe newRecipe = new Recipe();
+            newRecipe.setTitle(recipe.getTitle());
+            newRecipe.setDescription(recipe.getDescription());
+            newRecipe.setInstructions(recipe.getInstructions());
+            newRecipe.setImage(recipe.getImage());
+            newRecipe.setUser(recipe.getUser());
+            newRecipe.setCategory(recipe.getCategory());
+            recipeRepository.save(newRecipe);
+            return ResponseEntity.ok("New Recipe Added");
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
     }
 
     public void deleteRecipe(Long id){
