@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import {  useNavigate } from "react-router-dom";
+import CommentForm from './CommentForm'
+import Comments from './Comments';
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 
 function RecipeDetails() {
+    const [commentList, setCommentList] = useState([]);
     const Navigate = useNavigate()
     const location = useLocation();
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
   const { recipeData, recipeList } = location.state;
   const handleClick =(recipe)=>{
     Navigate('/layout/singlerecipe',{state:{recipeData:recipe, recipeList:recipeList.slice(0,10)}})
   }
+  const fetchComments =()=>{
+    axios.get(`/com/all/${recipeData.id}`,{headers:{ Authorization: `Bearer ${token}`}})
+        .then(res=>{
+            setCommentList(res.data)
+        }).catch(error=>{
+            console.log(error);
+        })
+  }
+  useEffect(()=>{
+    fetchComments()
+  },[])
     return (
         < >
  
@@ -89,65 +107,11 @@ function RecipeDetails() {
                          
                             <hr className="invis1"/>
 
-                            <div className="custombox clearfix">
-                                <h4 className="small-title">3 Comments</h4>
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                        <div className="comments-list">
-                                            <div className="media">
-                                                <Link className="media-left" to="#">
-                                                    <img src="upload/author.jpg" alt="" className="rounded-circle"/>
-                                                </Link>
-                                                <div className="media-body">
-                                                    <h4 className="media-heading user_name">Amanda Martines <small>5 days ago</small></h4>
-                                                    <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean.</p>
-                                                    <Link to="#" className="btn btn-primary btn-sm">Reply</Link>
-                                                </div>
-                                            </div>
-                                            <div className="media">
-                                                <Link className="media-left" to="#">
-                                                    <img src="upload/author_01.jpg" alt="" className="rounded-circle"/>
-                                                </Link>
-                                                <div className="media-body">
-
-                                                    <h4 className="media-heading user_name">Baltej Singh <small>5 days ago</small></h4>
-
-                                                    <p>Drinking vinegar stumptown yr pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra selfies. Shorts fixie consequat flexitarian four loko tempor duis single-origin coffee. Banksy, elit small.</p>
-
-                                                    <Link to="#" className="btn btn-primary btn-sm">Reply</Link>
-                                                </div>
-                                            </div>
-                                            <div className="media last-child">
-                                                <Link className="media-left" to="#">
-                                                    <img src="upload/author_02.jpg" alt="" className="rounded-circle"/>
-                                                </Link>
-                                                <div className="media-body">
-
-                                                    <h4 className="media-heading user_name">Marie Johnson <small>5 days ago</small></h4>
-                                                    <p>Kickstarter seitan retro. Drinking vinegar stumptown yr pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra selfies. Shorts fixie consequat flexitarian four loko tempor duis single-origin coffee. Banksy, elit small.</p>
-
-                                                    <Link to="#" className="btn btn-primary btn-sm">Reply</Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            
+                            <Comments commentList={commentList}/>
                             <hr className="invis1"/>
 
-                            <div className="custombox clearfix">
-                                <h4 className="small-title">Leave a Reply</h4>
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                        <form className="form-wrapper">
-                                            
-                                            <textarea className="form-control" placeholder="Your comment"></textarea>
-                                            <button type="submit" className="btn btn-primary">Submit Comment</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            <CommentForm fetchComments={fetchComments} recipeData={recipeData}/>
                         </div>
                     </div>
 
@@ -166,7 +130,7 @@ function RecipeDetails() {
                                     <div className="list-group">
 
                                         {recipeList && recipeList.map(recipe=>{
-                                            return <span onClick={()=>handleClick(recipe)} className="list-group-item list-group-item-action flex-column align-items-start "style={{cursor:"pointer"}}>
+                                            return <span onClick={()=>handleClick(recipe)} key={recipe.id} className="list-group-item list-group-item-action flex-column align-items-start "style={{cursor:"pointer"}}>
                                             <div className="w-100 justify-content-between">
                                                 <img src={recipe.image} alt="" className="img-fluid float-left"/>
                                                 <h5 className="mb-1">{recipe.title}</h5>

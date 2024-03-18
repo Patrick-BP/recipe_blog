@@ -97,12 +97,13 @@ function Home() {
    
         axios.put(`/update/recipe` , recipeToEdit,{headers:{ Authorization: `Bearer ${token}`    }})
         .then(res=>{
-            fetchRecipes();
+            
             toast.success(res.data,{
                 position: "top-center",
                 autoClose: 2000,
                 onClose: () => {
                     
+                    fetchRecipes();
                 },
             });
         })
@@ -111,9 +112,7 @@ function Home() {
         })
         event.target.classList.add('was-validated')
    }
-   const handleChangescateg = (e)=>{
-    setCategory({id:e.target.selectedIndex , name:e.target.options[e.target.selectedIndex].text})
-}
+
 
    useEffect(() => {
         
@@ -174,6 +173,11 @@ function Home() {
     const search = (event)=>{
         setFilter(event.target.value)
     }
+    useEffect(()=>{
+  
+        setSearchResult(recipes);
+    
+},[recipes])
     
       useEffect(()=>{
  

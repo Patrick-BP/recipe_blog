@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import {  useNavigate } from "react-router-dom";
-import DaysAgo from './DaysAgo';
 import axios from 'axios';
+import ReactTimeAgo from 'react-time-ago';
+import CommentForm from './CommentForm'
+import Comments from './Comments'
 axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 
 function RecipeDetails() {
@@ -27,19 +29,8 @@ function RecipeDetails() {
             console.log(error);
         })
   }
-  const handleChanges = (event)=>{
-    setComment(event.target.value)
-  }
-  const commentSubmit = (event)=>{
-    event.preventDefault();
-    axios.post('/com/new',{comment_text:comment, user, recipe:recipeData},{headers:{ Authorization: `Bearer ${token}`}})
-        .then(res=>{
-            fetchComments()
-
-        }).catch(error=>{
-            console.log(error);
-        })
-  }
+ 
+ 
   useEffect(()=>{
     fetchComments()
   },[])
@@ -121,47 +112,11 @@ function RecipeDetails() {
 
                          
                             <hr className="invis1"/>
-
-                            <div className="custombox clearfix">
-                                <h4 className="small-title">{commentList.length} Comments</h4>
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                        <div className="comments-list">
-
-                                            {commentList && commentList.map(comment=>{
-                                                return <div key={comment.id} className="media">
-                                                <Link className="media-left" to="#">
-                                                    <img src="upload/author.jpg" alt="" className="rounded-circle"/>
-                                                </Link>
-                                                <div className="media-body">
-                                                    <h4 className="media-heading user_name">{comment.user_name}<small> <DaysAgo date={comment.createdAt.slice(0, 10)} /></small></h4>
-                                                    <p>{comment.comment_text}</p>
-                                                    
-                                                </div>
-                                            </div>
-                                            })}
-                                            
-                                      
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            
+                            <Comments commentList={commentList}/>
                             <hr className="invis1"/>
-
-                            <div className="custombox clearfix">
-                                <h4 className="small-title">Leave a Reply</h4>
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                        <form className="form-wrapper" onSubmit={commentSubmit}>
-                                            
-                                            <textarea className="form-control" name="comment_text" value={comment} onChange={handleChanges} placeholder="Your comment"></textarea>
-                                            <button type="submit" className="btn btn-primary">Submit Comment</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            <CommentForm fetchComments={fetchComments} recipeData={recipeData}/>
                         </div>
                     </div>
 

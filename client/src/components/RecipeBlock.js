@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -13,9 +13,7 @@ const Navigate = useNavigate()
   const handleClick =(recipe)=>{
     Navigate('/layout/singlerecipe',{state:{recipeData:recipe, recipeList:recipes.slice(0,10)}})
   }
-useEffect(()=>{
 
-},[recipes])
   return (
     <div className="container">
 

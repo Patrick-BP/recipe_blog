@@ -40,7 +40,7 @@ function Feeds() {
             }).then(res=>{
                 
                 localStorage.setItem('categories', JSON.stringify(res.data))
-                
+                setCategoryList(res.data);
             }).catch(error=>{
                 console.log(error);
             })
@@ -98,8 +98,9 @@ function Feeds() {
  useEffect(()=>{
   
             setSearchResult(recipes);
+           
         
-    },[])
+    },[recipes])
  
  useEffect(()=>{
 
