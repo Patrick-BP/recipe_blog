@@ -12,7 +12,7 @@ const handlePageClick = (number)=>{
     setActivePage(number);
     paginate(number)
 }
-console.log(postPerPage, totalPosts);
+
     return ( 
     <div className="d-flex justify-content-center">
        

@@ -2,7 +2,6 @@ package com.perscholas.recipe.blog.Controllers;
 
 import com.perscholas.recipe.blog.DTO.RecipeResponseDTO;
 import com.perscholas.recipe.blog.models.Recipe;
-import com.perscholas.recipe.blog.models.User;
 import com.perscholas.recipe.blog.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +35,7 @@ public class recipeController {
             recipeDTO.setUser_name(recipe2.getUser().getName());
             recipeDTO.setCreatedAt(recipe2.getCreatedAt());
             recipeDTO.setCategory(recipe2.getCategory());
+            recipeDTO.setIngredients(recipe2.getIngredients());
             return recipeDTO;
         }).collect(Collectors.toList());
 
@@ -55,6 +55,7 @@ public class recipeController {
             recipeDTO.setUser_name(recipe.getUser().getName());
             recipeDTO.setCreatedAt(recipe.getCreatedAt());
             recipeDTO.setCategory(recipe.getCategory());
+            recipeDTO.setIngredients(recipe.getIngredients());
             return recipeDTO;
         }).collect(Collectors.toList());
     }

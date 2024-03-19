@@ -24,5 +24,6 @@ public class RecipeResponseDTO {
     private String user_name;
     private LocalDateTime createdAt;
     private Category category;
+    private String ingredients;
 
 }

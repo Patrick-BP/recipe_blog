@@ -17,7 +17,7 @@ function Home() {
     
     let [recipes, setRecipes] = useState([]);
     const[recipeToDelete, setRecipeToDelete] = useState(null);
-    const[recipeToEdit, setRecipeToEdit] = useState({title:"Banana-chip chocolate cake recipe", image:"https://html.design/demo/recipelist/upload/blog_square_05.jpg", description:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", instructions:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", category:{id:"",name:""}});
+    const[recipeToEdit, setRecipeToEdit] = useState({title:"Banana-chip chocolate cake recipe", image:"https://html.design/demo/recipelist/upload/blog_square_05.jpg", description:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", instructions:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", ingredients:"", category:{id:"",name:""}});
     const [categoryList, setCategoryList] = useState([])
     const [category, setCategory] =useState({id:"", name:""});
 
@@ -141,7 +141,7 @@ function Home() {
                 position: "top-center",
                 autoClose: 1000,
                 onClose: () => {
-                    setRecipeToEdit({title:"", image:"", description:"", instructions:"", category:{id:"", name:""}})
+                    setRecipeToEdit({title:"", image:"", description:"", instructions:"", ingredients:"", category:{id:"", name:""}})
                     fetchRecipes();
                 },
             });
@@ -263,6 +263,16 @@ function Home() {
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
+                                                            <label htmlFor="validationCustom07" className="form-label">Ingredients</label>
+                                                            <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={recipeToEdit.ingredients} required/>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide Ingredients
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
                                                             <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={handleChanges}  required>
                                                                <option >Select a category</option>
@@ -356,6 +366,16 @@ function Home() {
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom04" className="form-label">Instructions</label>
                                                             <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={ recipeToEdit.instructions} required/>
+                                                            <div className="valid-feedback">
+                                                            Looks good!
+                                                            </div>
+                                                            <div className="invalid-feedback">
+                                                                Must provide a Instructions
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom07" className="form-label">Ingredients</label>
+                                                            <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={ recipeToEdit.ingredients} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>

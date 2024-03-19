@@ -23,16 +23,19 @@ public class Recipe {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
     @Lob
-    @Column(nullable = false)
-    private String Instructions;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String instructions;
     @Column(nullable = false)
     private String image;
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String ingredients;
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false, updatable = false)
     private User user;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL )
-    private List<Ingredient> ingredientList;
+//    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL )
+//    private List<Ingredient> ingredientList;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL )
     private List<Comment> commentList = new ArrayList<>();

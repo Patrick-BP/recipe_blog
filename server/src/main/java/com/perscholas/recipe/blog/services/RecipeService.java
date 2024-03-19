@@ -44,10 +44,11 @@ public class RecipeService {
             newRecipe.setImage(recipe.getImage());
             newRecipe.setUser(recipe.getUser());
             newRecipe.setCategory(recipe.getCategory());
+            newRecipe.setIngredients(recipe.getIngredients());
             recipeRepository.save(newRecipe);
             return ResponseEntity.ok("New Recipe Added");
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }
 
     }
@@ -66,6 +67,7 @@ public class RecipeService {
             recipeToUpdate.setInstructions(recipe.getInstructions());
             recipeToUpdate.setImage(recipe.getImage());
             recipeToUpdate.setCategory(recipe.getCategory());
+            recipeToUpdate.setIngredients(recipe.getIngredients());
             try{
                 recipeRepository.save(recipe);
                 return  ResponseEntity.ok("Recipe updated");

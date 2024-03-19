@@ -90,11 +90,16 @@ function RecipeDetails() {
                             <div className="blog-content">  
                                 <p>{recipeData.description}</p>
 
+                                <div className=' bg-gradient p-4'>
+                                <h3><strong>Ingredients</strong></h3>
+                                    {recipeData.ingredients}
+                                </div>
+
                                 <h3><strong>Instructions</strong></h3>
 
                                 <p>{recipeData.instructions}</p>
 
-                                <p>Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum. Maecenas dapibus neque sodales nulla finibus volutpat. Integer pulvinar massa vitae ultrices posuere. Proin ut tempor turpis. Mauris felis neque, egestas in lobortis et, sodales non ante. Ut vestibulum libero quis luctus tempus. Nullam eget dignissim massa. Vivamus id condimentum orci. Nunc ac sem urna. Aliquam et hendrerit nisl massa nunc. </p>
+                              
 
                                    </div>
 
