@@ -98,7 +98,7 @@ function Feeds() {
  }
  useEffect(()=>{
   
-            setSearchResult(recipes);
+            setSearchResult(recipes.reverse());
            
         
     },[recipes])
@@ -106,7 +106,7 @@ function Feeds() {
  useEffect(()=>{
 
      if(filter === "all" || filter === ""){
-         setSearchResult(recipes);
+         setSearchResult(recipes.reverse());
      }else{
         let newRecipeList = recipes.filter(res => res.category.id == filter)
          setSearchResult(newRecipeList);

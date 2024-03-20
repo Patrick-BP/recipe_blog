@@ -35,6 +35,7 @@ function RecipeDetails() {
   useEffect(()=>{
     fetchComments()
   },[]);
+  
 
     return (
         < >

@@ -1,5 +1,6 @@
 package com.perscholas.recipe.blog.services;
 
+import com.perscholas.recipe.blog.DTO.UserResponseDTO;
 import com.perscholas.recipe.blog.exceptions.ResourceNotFoundException;
 import com.perscholas.recipe.blog.models.Role;
 import com.perscholas.recipe.blog.models.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -24,8 +26,17 @@ public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public List<UserResponseDTO> getAllUsers(){
+
+        return  userRepository.findAll().stream().map(user->{
+            UserResponseDTO userRespoDTO = new UserResponseDTO();
+            userRespoDTO.setName(user.getName());
+            userRespoDTO.setEmail(user.getEmail());
+            userRespoDTO.setRoles((Set<Role>) user.getAuthorities());
+
+            return userRespoDTO;
+        }).collect(Collectors.toList());
+
     }
     public ResponseEntity<User> getUserById(Long id){
         User user = userRepository.findUserById(id)

@@ -9,3 +9,7 @@ a:hover, a:focus {
 .pagination>li>a:hover{
     background-color: #AB0012 !important;
 }
+
+.modal-dialog {
+    max-width: 900px !important;
+}

@@ -23,6 +23,9 @@ function Home() {
     const[recipeToEdit, setRecipeToEdit] = useState({title:"Banana-chip chocolate cake recipe", image:"https://html.design/demo/recipelist/upload/blog_square_05.jpg", description:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", instructions:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", ingredients:"", category:{id:"",name:""}});
     const [categoryList, setCategoryList] = useState([])
     const [category, setCategory] =useState({id:"", name:""});
+    const [instructionsError, setInstructionsError] = useState('');
+    const [ingredientsError, setIngredientsError] = useState('');
+
 
     const fetchRecipes = async()=>{
         try{
@@ -129,6 +132,14 @@ function Home() {
    const newRecipeSubmit = (event)=>{
    
         event.preventDefault()
+        if (!recipeToEdit.instructions.trim()) {
+            setInstructionsError('Instructions are required');
+            return;
+          }
+        if (!recipeToEdit.ingredients.trim()) {
+            setIngredientsError('Ingredients are required');
+            return;
+          }
        
         if (!event.target.checkValidity()) {
             event.preventDefault()
@@ -178,7 +189,7 @@ function Home() {
     }
     useEffect(()=>{
   
-        setSearchResult(recipes);
+        setSearchResult(recipes.reverse());
     
 },[recipes])
     
@@ -198,10 +209,22 @@ function Home() {
 
     const handleInstructionsChange = (value) => {
         setRecipeToEdit(prev=>({...prev, instructions:value}));
+        if (!value.trim()) {
+            setInstructionsError('Instructions are required');
+          } else {
+            setInstructionsError('');
+          }
       };
-    const handleIngredientsChange = ()=>{
+    const handleIngredientsChange = (value)=>{
         setRecipeToEdit(prev=>({...prev, ingredients:value}));
+        if (!value.trim()) {
+            setIngredientsError('ingredients are required');
+          } else {
+            setIngredientsError('');
+          }
     }
+
+   
     return (
         <>
         <ToastContainer />
@@ -282,16 +305,17 @@ function Home() {
                                                                 Must provide Ingredients
                                                             </div> */}
                                                             <ReactQuill value={recipeToEdit.ingredients} onChange={handleIngredientsChange} />
-
+                                                            {ingredientsError && <p style={{ color: 'red' }}>{ingredientsError}</p>}
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom07" className="form-label">Instructions</label>
                                                             <ReactQuill value={recipeToEdit.instructions} onChange={handleInstructionsChange} />
+                                                            {instructionsError && <p style={{ color: 'red' }}>{instructionsError}</p>}
                                                         </div>
                                                         
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
-                                                            <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={handleChanges}  required>
+                                                            <select type="text" className="form-select fs-4" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={handleChanges}  required>
                                                                <option >Select a category</option>
                                                                 {categoryList && categoryList.map((categ,index)=>{
                                                                     return <option key={index} value={categ.id}>{categ.name}</option>
@@ -381,28 +405,33 @@ function Home() {
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12">
-                                                            <label htmlFor="validationCustom04" className="form-label">Instructions</label>
-                                                            <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={ recipeToEdit.instructions} required/>
+                                                            <label htmlFor="validationCustom07" className="form-label">Ingredients</label>
+                                                            {/* <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={ recipeToEdit.ingredients} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
                                                             <div className="invalid-feedback">
                                                                 Must provide a Instructions
-                                                            </div>
+                                                            </div> */}
+                                                            <ReactQuill value={recipeToEdit.ingredients} onChange={handleIngredientsChange} />
+                                                            {ingredientsError && <p style={{ color: 'red' }}>{ingredientsError}</p>}
                                                         </div>
                                                         <div className="col-md-12">
-                                                            <label htmlFor="validationCustom07" className="form-label">Ingredients</label>
-                                                            <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={ recipeToEdit.ingredients} required/>
+                                                            <label htmlFor="validationCustom04" className="form-label">Instructions</label>
+                                                            {/* <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={ recipeToEdit.instructions} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
                                                             <div className="invalid-feedback">
                                                                 Must provide a Instructions
-                                                            </div>
+                                                            </div> */}
+                                                            <ReactQuill value={recipeToEdit.instructions} onChange={handleInstructionsChange} />
+                                                            {instructionsError && <p style={{ color: 'red' }}>{instructionsError}</p>}
                                                         </div>
+                                                        
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
-                                                            <select   className="form-select"  id="validationCustom05"  name="category" onChange={handleChanges}  required>
+                                                            <select   className="form-select fs-4"  id="validationCustom05"  name="category" onChange={handleChanges}  required>
                                                             <option >Select a category</option>
                                                                 {categoryList && categoryList.map((categ,index)=>{
                                                                     return <option key={index} value={categ.id}>{categ.name}</option>
