@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 axios.defaults.baseURL ='http://localhost:8098/api/recipe';
 
@@ -191,6 +193,11 @@ function Home() {
         
         
     },[filter])
+
+
+    const handleInstructionsChange = (value) => {
+        setRecipeToEdit(prev=>({...prev, instructions:value}));
+      };
     
     return (
         <>
@@ -252,7 +259,7 @@ function Home() {
                                                                 Must provide a Description
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-12">
+                                                        {/* <div className="col-md-12">
                                                             <label htmlFor="validationCustom04" className="form-label">Instructions</label>
                                                             <textarea type="text" className="form-control" id="validationCustom04" name="instructions" onChange={handleChanges} value={recipeToEdit.instructions} required/>
                                                             <div className="valid-feedback">
@@ -261,7 +268,7 @@ function Home() {
                                                             <div className="invalid-feedback">
                                                                 Must provide a Instructions
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom07" className="form-label">Ingredients</label>
                                                             <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={recipeToEdit.ingredients} required/>
@@ -272,6 +279,11 @@ function Home() {
                                                                 Must provide Ingredients
                                                             </div>
                                                         </div>
+                                                        <div className="col-md-12">
+                                                            <label htmlFor="validationCustom07" className="form-label">Instructions</label>
+                                                            <ReactQuill value={recipeToEdit.instructions} onChange={handleInstructionsChange} />
+                                                        </div>
+                                                        
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom05" className="form-label">Category</label>
                                                             <select type="text" className="form-select" aria-label="Default select example"  id="validationCustom05"   name="category" onChange={handleChanges}  required>
