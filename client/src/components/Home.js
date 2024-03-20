@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+
 axios.defaults.baseURL ='http://localhost:8098/api/recipe';
 
 
@@ -198,11 +199,13 @@ function Home() {
     const handleInstructionsChange = (value) => {
         setRecipeToEdit(prev=>({...prev, instructions:value}));
       };
-    
+    const handleIngredientsChange = ()=>{
+        setRecipeToEdit(prev=>({...prev, ingredients:value}));
+    }
     return (
         <>
         <ToastContainer />
-        <section className="section lb text-muted">
+        <section className="section lb text-muted" >
         
           
           <div className='container mb-5 pt-5'>
@@ -271,13 +274,15 @@ function Home() {
                                                         </div> */}
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom07" className="form-label">Ingredients</label>
-                                                            <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={recipeToEdit.ingredients} required/>
+                                                            {/* <textarea type="text" className="form-control" id="validationCustom07" name="ingredients" onChange={handleChanges} value={recipeToEdit.ingredients} required/>
                                                             <div className="valid-feedback">
                                                             Looks good!
                                                             </div>
                                                             <div className="invalid-feedback">
                                                                 Must provide Ingredients
-                                                            </div>
+                                                            </div> */}
+                                                            <ReactQuill value={recipeToEdit.ingredients} onChange={handleIngredientsChange} />
+
                                                         </div>
                                                         <div className="col-md-12">
                                                             <label htmlFor="validationCustom07" className="form-label">Instructions</label>

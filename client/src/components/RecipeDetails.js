@@ -34,7 +34,8 @@ function RecipeDetails() {
  
   useEffect(()=>{
     fetchComments()
-  },[])
+  },[]);
+
     return (
         < >
  
@@ -87,7 +88,7 @@ function RecipeDetails() {
                             
                             </div>
 
-                            <div className="blog-content">  
+                            <div className="blog-content" >  
                                 <p>{recipeData.description}</p>
 
                                 <div className=' p-4' style={{background: "rgb(171,0,18)",background: "linear-gradient(rgb(211 209 235 / 59%) 0%, rgb(230 232 239) 35%, rgb(255, 255, 255) 100%)"}}>
