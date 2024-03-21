@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState }  from 'react'
 
 export default function Users() {
 
-    const users = JSON.parse(localStorage.getItem('users'))
-    
+    const users = JSON.parse(localStorage.getItem('users'));
+    const[search, setSearch] = useState([])
+    const [searchInput, setSearchInput] = useState("")
+
+    useEffect(()=>{
+        setSearch(users)
+    },[])
+    useEffect(()=>{
+        setSearch(users.filter(categ=> categ.name.toLowerCase().includes(searchInput.toLowerCase())))
+    },[searchInput])
   return (
     <div className='container'>
         
@@ -12,7 +20,7 @@ export default function Users() {
       <div className='d-flex justify-content-between mb-5'>
 
 
-       <div><input type="search" className='form-control' placeholder = "search" /></div> 
+       <div><input type="search" className='form-control' onChange={(e)=> setSearchInput(e.target.value)} placeholder = "search" /></div> 
 </div>  
 
         <table className="table table-striped table-hover">
@@ -27,7 +35,7 @@ export default function Users() {
   </thead>
   <tbody>
 
-    {users && users.map((user,index)=>{
+    {search && search.map((user,index)=>{
         return (
             <tr key={index}>
                 <th scope="row">{index + 1}</th>
