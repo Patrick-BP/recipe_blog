@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
 axios.defaults.baseURL = 'http://localhost:8098/api';
 
 export default function Categories() {
@@ -12,7 +13,15 @@ export default function Categories() {
     const deleteCateg = (id)=>{
         axios.delete(`/admin/categ/del/${id}`,{headers:{ Authorization: `Bearer ${token}`}})
         .then(res=>{
-            console.log(res.data);
+            toast.success(res.data,{
+                position: "top-center",
+                autoClose: 2000,
+                onClose: () => {
+                    
+           setSearch(categories.filter(categ=>categ.id !== id))
+                },
+            });
+            
         }).catch(error=>{
             console.log(error);
         })
@@ -25,9 +34,25 @@ export default function Categories() {
         event.preventDefault()
         axios.post('/admin/categ/new',{name:input },{headers:{ Authorization: `Bearer ${token}`}})
         .then(res=>{
-            console.log(res.data);
+            setSearch(prev=>[...prev,{name:input}])
+            toast.success(res.data,{
+                position: "top-center",
+                autoClose: 2000,
+                onClose: () => {
+                    
+                    
+                    setInput("")
+                },
+            });
         }).catch(error=>{
-            console.log(error);
+            toast.error(error,{
+                position: "top-center",
+                autoClose: 2000,
+                onClose: () => {
+                    
+                    
+                },
+            });
         })
     }
     useEffect(()=>{
@@ -40,7 +65,7 @@ export default function Categories() {
 
   return (
     <div className='container'>
-        
+         <ToastContainer />
     <h1 className='my-5'> Manage Categories</h1>
 <div className='d-flex justify-content-between mb-5'>
         <form onSubmit={submitCategory}>
