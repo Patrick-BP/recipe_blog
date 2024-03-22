@@ -8,8 +8,8 @@ import { signInUser } from "../redux/authSlice";
 
 function Login() {
   const [input, setInput] = useState({
-    email: "test@gmail.com",
-    password: "123",
+    email: "admin@gmail.com",
+    password: "password",
   });
 
   const dispatch = useDispatch();

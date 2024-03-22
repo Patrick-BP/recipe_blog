@@ -5,7 +5,9 @@ import {  useNavigate } from "react-router-dom";
 import CommentForm from './CommentForm'
 import Comments from './Comments';
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
+import RecentPosts from './RecentPosts';
+
+// axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 
 function RecipeDetails() {
     const [commentList, setCommentList] = useState([]);
@@ -15,10 +17,10 @@ function RecipeDetails() {
     const token = localStorage.getItem("token");
   const { recipeData, recipeList } = location.state;
   const handleClick =(recipe)=>{
-    Navigate('/layout/singlerecipe',{state:{recipeData:recipe, recipeList:recipeList.slice(0,10)}})
+    Navigate('/layout/singlerecipe2',{state:{recipeData:recipe, recipeList:recipeList.slice(0,10)}})
   }
   const fetchComments =()=>{
-    axios.get(`/com/all/${recipeData.id}`,{headers:{ Authorization: `Bearer ${token}`}})
+    axios.get(`http://localhost:8098/api/recipe/com/all/${recipeData.id}`,{headers:{ Authorization: `Bearer ${token}`}})
         .then(res=>{
             setCommentList(res.data)
         }).catch(error=>{
@@ -27,7 +29,8 @@ function RecipeDetails() {
   }
   useEffect(()=>{
     fetchComments()
-  },[])
+  },[]);
+
     return (
         < >
  
@@ -79,15 +82,20 @@ function RecipeDetails() {
 
                             
                             </div>
-
-                            <div className="blog-content">  
+                            <div className="blog-content" >  
                                 <p>{recipeData.description}</p>
+
+
+                            <div className=' p-4' style={{background: "rgb(171,0,18)",background: "linear-gradient(rgb(211 209 235 / 59%) 0%, rgb(230 232 239) 35%, rgb(255, 255, 255) 100%)"}}>
+                                <h3><strong>Ingredients</strong></h3>
+                                   <p dangerouslySetInnerHTML={{ __html: recipeData.ingredients }} />
+                                </div>
 
                                 <h3><strong>Instructions</strong></h3>
 
-                                <p>{recipeData.instructions}</p>
+                                <p dangerouslySetInnerHTML={{ __html: recipeData.instructions }} />
 
-                                <p>Vivamus non condimentum orci. Pellentesque venenatis nibh sit amet est vehicula lobortis. Cras eget aliquet eros. Nunc lectus elit, suscipit at nunc sed, finibus imperdiet ipsum. Maecenas dapibus neque sodales nulla finibus volutpat. Integer pulvinar massa vitae ultrices posuere. Proin ut tempor turpis. Mauris felis neque, egestas in lobortis et, sodales non ante. Ut vestibulum libero quis luctus tempus. Nullam eget dignissim massa. Vivamus id condimentum orci. Nunc ac sem urna. Aliquam et hendrerit nisl massa nunc. </p>
+                                
 
                                    </div>
 
@@ -108,7 +116,7 @@ function RecipeDetails() {
                             <hr className="invis1"/>
 
                             
-                            <Comments commentList={commentList}/>
+                            <Comments fetchComments={fetchComments} commentList={commentList}/>
                             <hr className="invis1"/>
 
                             <CommentForm fetchComments={fetchComments} recipeData={recipeData}/>
@@ -124,28 +132,9 @@ function RecipeDetails() {
                                 </form>
                             </div>
 
-                            <div className="widget">
-                                <h2 className="widget-title">Recent Posts</h2>
-                                <div className="blog-list-widget">
-                                    <div className="list-group">
+                            
 
-                                        {recipeList && recipeList.map(recipe=>{
-                                            return <span onClick={()=>handleClick(recipe)} key={recipe.id} className="list-group-item list-group-item-action flex-column align-items-start "style={{cursor:"pointer"}}>
-                                            <div className="w-100 justify-content-between">
-                                                <img src={recipe.image} alt="" className="img-fluid float-left"/>
-                                                <h5 className="mb-1">{recipe.title}</h5>
-                                                <small>{recipe.createdAt.slice(0, 10)}</small>
-                                            </div>
-                                        </span>
-                                        })}
-                                        
-
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                         
+                            <RecentPosts handleClick ={handleClick}/>
 
                         
                         </div>

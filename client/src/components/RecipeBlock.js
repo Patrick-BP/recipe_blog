@@ -4,7 +4,7 @@ import { useState } from "react";
 import Pagination from "./Pagination";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8098/api/recipe";
+// axios.defaults.baseURL = "http://localhost:8098/api/recipe";
 
 function RecipeBlock({ recipes, showButton, refresh, onDelete, onEdit }) {
 

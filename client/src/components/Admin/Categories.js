@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-axios.defaults.baseURL = 'http://localhost:8098/api';
+// axios.defaults.baseURL = 'http://localhost:8098/api';
 
 export default function Categories() {
     const categories = JSON.parse(localStorage.getItem('categories'));
@@ -11,7 +11,7 @@ export default function Categories() {
     const [searchInput, setSearchInput] = useState("")
    
     const deleteCateg = (id)=>{
-        axios.delete(`/admin/categ/del/${id}`,{headers:{ Authorization: `Bearer ${token}`}})
+        axios.delete(`http://localhost:8098/api/admin/categ/del/${id}`,{headers:{ Authorization: `Bearer ${token}`}})
         .then(res=>{
             toast.success(res.data,{
                 position: "top-center",
@@ -32,7 +32,7 @@ export default function Categories() {
     }
     const submitCategory = (event)=>{
         event.preventDefault()
-        axios.post('/admin/categ/new',{name:input },{headers:{ Authorization: `Bearer ${token}`}})
+        axios.post('http://localhost:8098/api/admin/categ/new',{name:input },{headers:{ Authorization: `Bearer ${token}`}})
         .then(res=>{
             setSearch(prev=>[...prev,{name:input}])
             toast.success(res.data,{

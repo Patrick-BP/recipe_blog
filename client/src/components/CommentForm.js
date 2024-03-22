@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
+// axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 
 function CommentForm({recipeData, fetchComments}) {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -12,10 +12,10 @@ function CommentForm({recipeData, fetchComments}) {
       }
       const commentSubmit = (event)=>{
         event.preventDefault();
-        axios.post('/com/new',{comment_text:comment, user, recipe:recipeData},{headers:{ Authorization: `Bearer ${token}`}})
+        axios.post('http://localhost:8098/api/recipe/com/new',{comment_text:comment, user, recipe:recipeData},{headers:{ Authorization: `Bearer ${token}`}})
             .then(res=>{
                 fetchComments()
-    
+                setComment("")
             }).catch(error=>{
                 console.log(error);
             })

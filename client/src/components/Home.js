@@ -8,7 +8,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
-axios.defaults.baseURL ='http://localhost:8098/api/recipe';
+// axios.defaults.baseURL ='http://localhost:8098/api/recipe';
 
 
 function Home() {
@@ -29,7 +29,7 @@ function Home() {
 
     const fetchRecipes = async()=>{
         try{
-            const response = await  axios.get(`/user/${user_id}`,{
+            const response = await  axios.get(`http://localhost:8098/api/recipe/user/${user_id}`,{
                 headers:{ Authorization: `Bearer ${token}`    }
             });
             setRecipes(response.data)
@@ -42,7 +42,7 @@ function Home() {
     }
     const fetchCategories = ()=>{
         try{
-             axios.get(`/categ/all`,{
+             axios.get(`http://localhost:8098/api/recipe/categ/all`,{
                 headers:{ Authorization: `Bearer ${token}`    }
             }).then(res=>{
                 
@@ -71,7 +71,7 @@ function Home() {
    
    }
    const confirmDelete = ()=>{
-          axios.delete(`/del/${recipeToDelete.id}`,{headers:{ Authorization: `Bearer ${token}`    }})
+          axios.delete(`http://localhost:8098/api/recipe/del/${recipeToDelete.id}`,{headers:{ Authorization: `Bearer ${token}`    }})
         .then(res=>{
            
             fetchRecipes();
@@ -101,7 +101,7 @@ function Home() {
    const updateRecipeSubmit = (event)=>{
     event.preventDefault()
    
-        axios.put(`/update/recipe` , recipeToEdit,{headers:{ Authorization: `Bearer ${token}`    }})
+        axios.put(`http://localhost:8098/api/recipe/update/recipe` , recipeToEdit,{headers:{ Authorization: `Bearer ${token}`    }})
         .then(res=>{
             
             toast.success(res.data,{
@@ -146,7 +146,7 @@ function Home() {
             event.stopPropagation()
           }else{
           try{
-            axios.post('/new',{...recipeToEdit, user},{
+            axios.post('http://localhost:8098/api/recipe/new',{...recipeToEdit, user},{
             headers:{ Authorization: `Bearer ${token}`},
             
           }).then(response=>{
@@ -231,7 +231,7 @@ function Home() {
         <section className="section lb text-muted" >
         
           
-          <div className='container mb-5 pt-5'>
+          <div className='container  mb-5 pt-5' >
           <select type="text" className="form-select fs-2   " aria-label="Default select example"  id="validationCustom05"   name="category" onChange={search}  required>
                        <option value="all">search By category</option>
                        <option value="all">All Recipes</option>

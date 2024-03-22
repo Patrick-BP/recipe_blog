@@ -1,5 +1,9 @@
 import React, { useEffect, useState }  from 'react'
 
+const handleRoleChanges =(id)=>{
+    console.log(id);
+}
+
 export default function Users() {
 
     const users = JSON.parse(localStorage.getItem('users'));
@@ -42,7 +46,11 @@ export default function Users() {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.roles[0].authority}</td>
-                <td><input type="checkbox" checked data-toggle="toggle" /></td>
+                <td><label className="switch">
+                    <input type="checkbox" onChange={()=>handleRoleChanges(user.id)}/>
+                    <span className="slider round"></span>
+                    </label>
+                </td>
             </tr>
         )
     })}

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import {  useNavigate } from "react-router-dom";
+
 import axios from 'axios';
 
 import CommentForm from './CommentForm'
 import Comments from './Comments'
 import RecentPosts from './RecentPosts';
-axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
+// axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 
 function RecipeDetails() {
     const [comment, setComment] = useState("");
@@ -23,7 +24,7 @@ function RecipeDetails() {
     }
 
   const fetchComments =()=>{
-    axios.get(`/com/all/${recipeData.id}`,{headers:{ Authorization: `Bearer ${token}`}})
+    axios.get(`http://localhost:8098/api/recipe/com/all/${recipeData.id}`,{headers:{ Authorization: `Bearer ${token}`}})
         .then(res=>{
             setCommentList(res.data)
         }).catch(error=>{
@@ -94,12 +95,12 @@ function RecipeDetails() {
 
                                 <div className=' p-4' style={{background: "rgb(171,0,18)",background: "linear-gradient(rgb(211 209 235 / 59%) 0%, rgb(230 232 239) 35%, rgb(255, 255, 255) 100%)"}}>
                                 <h3><strong>Ingredients</strong></h3>
-                                    {recipeData.ingredients}
+                                   <p dangerouslySetInnerHTML={{ __html: recipeData.ingredients }} />
                                 </div>
 
                                 <h3><strong>Instructions</strong></h3>
 
-                                <p>{recipeData.instructions}</p>
+                                <p dangerouslySetInnerHTML={{ __html: recipeData.instructions }} />
 
                               
 
@@ -121,7 +122,7 @@ function RecipeDetails() {
                          
                             <hr className="invis1"/>
                             
-                            <Comments commentList={commentList}/>
+                            <Comments fetchComments={fetchComments} commentList={commentList}/>
                             <hr className="invis1"/>
                             
                             <CommentForm fetchComments={fetchComments} recipeData={recipeData}/>

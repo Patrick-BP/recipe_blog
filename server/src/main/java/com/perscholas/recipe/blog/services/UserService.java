@@ -30,6 +30,7 @@ public class UserService implements UserDetailsService {
 
         return  userRepository.findAll().stream().map(user->{
             UserResponseDTO userRespoDTO = new UserResponseDTO();
+            userRespoDTO.setId(user.getId());
             userRespoDTO.setName(user.getName());
             userRespoDTO.setEmail(user.getEmail());
             userRespoDTO.setRoles((Set<Role>) user.getAuthorities());

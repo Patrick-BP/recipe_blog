@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
-axios.defaults.baseURL ='http://localhost:8098/api/recipe';
+// axios.defaults.baseURL ='http://localhost:8098/api/recipe';
 
 
 function Feeds() {
@@ -22,8 +22,8 @@ function Feeds() {
 
     const fetchRecipes = async()=>{
         try{
-            const response = await  axios.get(`/all`,{
-                headers:{ Authorization: `Bearer ${token}`    }
+            const response = await  axios.get(`http://localhost:8098/api/recipe/all`,{
+                headers:{'Content-Type':'application/json', Authorization: `Bearer ${token}`    }
             });
             setRecipes(response.data.reverse())
             localStorage.setItem("recipes", JSON.stringify(response.data.reverse()))
@@ -36,8 +36,8 @@ function Feeds() {
     }
     const fetchCategories = ()=>{
         try{
-             axios.get(`/categ/all`,{
-                headers:{ Authorization: `Bearer ${token}`    }
+             axios.get(`http://localhost:8098/api/recipe/categ/all`,{
+                headers:{'Content-Type':'application/json', Authorization: `Bearer ${token}`    }
             }).then(res=>{
                 
                 localStorage.setItem('categories', JSON.stringify(res.data))

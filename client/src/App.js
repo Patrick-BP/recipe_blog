@@ -22,7 +22,7 @@ function App() {
     <Routes>
         <Route index element={<Login/>} /> 
         <Route path='/register' element={<Register/>} /> 
-        {token != null ? (<>
+        {token !== null ? (<>
           <Route path='/layout' element={<Layout/>} > 
             <Route index element={<Feeds/>}/>
             <Route path='home' element={<Home/>}/>
