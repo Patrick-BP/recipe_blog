@@ -2,13 +2,9 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Pagination from "./Pagination";
-import axios from "axios";
-
-// axios.defaults.baseURL = "http://localhost:8098/api/recipe";
 
 function RecipeBlock({ recipes, showButton, refresh, onDelete, onEdit }) {
 
-  const [loading, setLoading] = useState(false);
 const [currentPage , setCurrentPage] = useState(1);
 const [postPerPage, setPostPerPage] = useState(8);
 

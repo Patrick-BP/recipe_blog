@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RecipeBlock from './RecipeBlock'
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 // axios.defaults.baseURL ='http://localhost:8098/api/recipe';
 
@@ -11,7 +10,6 @@ function Feeds() {
     
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
-    const user_id = user.id
     
     
     let [recipes, setRecipes] = useState([]);

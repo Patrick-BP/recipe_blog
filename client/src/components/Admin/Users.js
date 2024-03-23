@@ -1,8 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import axios from 'axios'
-const handleRoleChanges =(id)=>{
-    console.log(id);
-}
+
 
 export default function Users() {
 

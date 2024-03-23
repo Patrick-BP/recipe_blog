@@ -11,11 +11,10 @@ import RecentPosts from './RecentPosts';
 // axios.defaults.baseURL = 'http://localhost:8098/api/recipe'
 
 function RecipeDetails() {
-    const [comment, setComment] = useState("");
+  
     const [commentList, setCommentList] = useState([]);
     const Navigate = useNavigate()
     const location = useLocation();
-    const user = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token");
     const { recipeData, recipeList } = location.state;
 

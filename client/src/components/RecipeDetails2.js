@@ -13,7 +13,6 @@ function RecipeDetails() {
     const [commentList, setCommentList] = useState([]);
     const Navigate = useNavigate()
     const location = useLocation();
-    const user = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token");
   const { recipeData, recipeList } = location.state;
   const handleClick =(recipe)=>{

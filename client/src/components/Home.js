@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RecipeBlock from './RecipeBlock'
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -22,7 +20,6 @@ function Home() {
     const[recipeToDelete, setRecipeToDelete] = useState(null);
     const[recipeToEdit, setRecipeToEdit] = useState({title:"Banana-chip chocolate cake recipe", image:"https://html.design/demo/recipelist/upload/blog_square_05.jpg", description:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", instructions:"Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.", ingredients:"", category:{id:"",name:""}});
     const [categoryList, setCategoryList] = useState([])
-    const [category, setCategory] =useState({id:"", name:""});
     const [instructionsError, setInstructionsError] = useState('');
     const [ingredientsError, setIngredientsError] = useState('');
 

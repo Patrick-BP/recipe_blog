@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import { signInUser } from "../redux/authSlice";
 
 
@@ -14,8 +14,8 @@ function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-const [userInfo, setUserInfo] = useState({})
-  const user = useSelector(state=>state.user)
+
+  
 
   const handleChanges = (event) => {
     setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
