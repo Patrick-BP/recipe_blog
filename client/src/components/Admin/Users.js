@@ -1,21 +1,60 @@
 import React, { useEffect, useState }  from 'react'
-
+import axios from 'axios'
 const handleRoleChanges =(id)=>{
     console.log(id);
 }
 
 export default function Users() {
 
-    const users = JSON.parse(localStorage.getItem('users'));
+    const [users, setUsers] = useState([])
     const[search, setSearch] = useState([])
-    const [searchInput, setSearchInput] = useState("")
+    const [searchInput, setSearchInput] = useState("");
+    const token = localStorage.getItem('token')
+
+    const fetchUsers = ()=>{
+      axios.get('http://localhost:8098/api/user/all',{headers:{ Authorization: `Bearer ${token}`}})
+      .then(res=>{
+       
+       setSearch(res.data)
+      }).catch(error=>{
+        console.log(error);
+      })
+    }
 
     useEffect(()=>{
-        setSearch(users)
+      fetchUsers();
+        
     },[])
+
     useEffect(()=>{
         setSearch(users.filter(categ=> categ.name.toLowerCase().includes(searchInput.toLowerCase())))
-    },[searchInput])
+    },[searchInput]);
+
+    const [role, setRole] = useState('User'); // Default role is User
+
+    const handleRoleChanges = (id, role) => {
+      if(role === 'USER'){
+        axios.put(`http://localhost:8098/api/admin/user/${id}`,[{roleId: 1, authority: "ADMIN"}],{headers:{ Authorization: `Bearer ${token}`}})
+      .then(res=>{
+       
+        fetchUsers();
+      }).catch(error=>{
+        console.log(error);
+      })
+      }else if(role === 'ADMIN'){
+        axios.put(`http://localhost:8098/api/admin/user/${id}`, [{roleId: 2, authority: "USER"}],{headers:{ Authorization: `Bearer ${token}`}})
+        .then(res=>{
+         
+          fetchUsers();
+        }).catch(error=>{
+          console.log(error);
+        })
+
+      }
+      
+    
+    };
+    
   return (
     <div className='container'>
         
@@ -46,11 +85,11 @@ export default function Users() {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.roles[0].authority}</td>
-                <td><label className="switch">
-                    <input type="checkbox" onChange={()=>handleRoleChanges(user.id)}/>
+               {user.id !== 1 ? <td><label className="switch">
+                   <input type="checkbox" checked={user.roles[0].authority === "ADMIN"} onChange={()=>handleRoleChanges(user.id, user.roles[0].authority)}/>
                     <span className="slider round"></span>
                     </label>
-                </td>
+                </td>: <td></td> }
             </tr>
         )
     })}

@@ -33,7 +33,7 @@ export default function HomeAdmin() {
     axios.get('http://localhost:8098/api/recipe/categ/all',{headers:{ Authorization: `Bearer ${token}`}})
     .then(res=>{
       setnumberOfCategories(res.data.length)
-      console.log(res.data.length);
+      
       localStorage.setItem("categories", JSON.stringify(res.data))
     }).catch(error=>{
       console.log(error);
@@ -64,7 +64,7 @@ export default function HomeAdmin() {
                 </div>
                 <div className='bg-primary  w-25 text-center p-3'>
                     <div><img src='/assets/images/tag.png'/></div>
-                    <div className='mt-5'><h1>{numberOfUsers ? numberOfUsers: "loading.." }</h1></div>
+                    <div className='mt-5'><h1>{numberOfCategories ? numberOfCategories: "loading.." }</h1></div>
                     <div className='fs-4 mb-4 text-bg-success'>Total Categories</div>
                 </div>
             </div>

@@ -46,4 +46,8 @@ public class UserController {
     public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body){
         return authenticationService.login(body.getEmail(), body.getPassword());
     }
+    @PutMapping("/admin/user/{id}")
+    public ResponseEntity<String> updateRole(@PathVariable Long id, @RequestBody Set<Role> role){
+        return userService.changeRoles(id, role);
+    }
 }

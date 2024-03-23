@@ -8,7 +8,9 @@ export default function Categories() {
     const [input, setInput] = useState("");
     const token = localStorage.getItem('token')
     const[search, setSearch] = useState([])
-    const [searchInput, setSearchInput] = useState("")
+    const [searchInput, setSearchInput] = useState("");
+
+    
    
     const deleteCateg = (id)=>{
         axios.delete(`http://localhost:8098/api/admin/categ/del/${id}`,{headers:{ Authorization: `Bearer ${token}`}})
