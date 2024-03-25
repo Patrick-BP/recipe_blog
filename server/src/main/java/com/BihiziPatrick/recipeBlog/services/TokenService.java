@@ -1,4 +1,4 @@
-package com.perscholas.recipe.blog.services;
+package com.BihiziPatrick.recipeBlog.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

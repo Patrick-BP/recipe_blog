@@ -1,19 +1,16 @@
-package com.perscholas.recipe.blog.Controllers;
+package com.BihiziPatrick.recipeBlog.Controllers;
 
-import com.perscholas.recipe.blog.DTO.LoginResponseDTO;
-import com.perscholas.recipe.blog.DTO.RegistrationDTO;
-import com.perscholas.recipe.blog.DTO.UserResponseDTO;
-import com.perscholas.recipe.blog.models.Role;
-import com.perscholas.recipe.blog.models.User;
-import com.perscholas.recipe.blog.services.AuthenticationService;
-import com.perscholas.recipe.blog.services.UserService;
-import jakarta.servlet.Registration;
+import com.BihiziPatrick.recipeBlog.DTO.LoginResponseDTO;
+import com.BihiziPatrick.recipeBlog.DTO.RegistrationDTO;
+import com.BihiziPatrick.recipeBlog.DTO.UserResponseDTO;
+import com.BihiziPatrick.recipeBlog.models.Role;
+import com.BihiziPatrick.recipeBlog.models.User;
+import com.BihiziPatrick.recipeBlog.services.AuthenticationService;
+import com.BihiziPatrick.recipeBlog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 

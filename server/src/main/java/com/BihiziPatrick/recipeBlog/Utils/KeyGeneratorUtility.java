@@ -1,4 +1,4 @@
-package com.perscholas.recipe.blog.Utils;
+package com.BihiziPatrick.recipeBlog.Utils;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;

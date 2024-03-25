@@ -1,8 +1,8 @@
-package com.perscholas.recipe.blog.Controllers;
+package com.BihiziPatrick.recipeBlog.Controllers;
 
-import com.perscholas.recipe.blog.DTO.RecipeResponseDTO;
-import com.perscholas.recipe.blog.models.Recipe;
-import com.perscholas.recipe.blog.services.RecipeService;
+import com.BihiziPatrick.recipeBlog.DTO.RecipeResponseDTO;
+import com.BihiziPatrick.recipeBlog.models.Recipe;
+import com.BihiziPatrick.recipeBlog.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

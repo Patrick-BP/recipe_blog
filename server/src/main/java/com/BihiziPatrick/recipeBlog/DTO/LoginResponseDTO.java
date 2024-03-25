@@ -1,6 +1,5 @@
-package com.perscholas.recipe.blog.DTO;
+package com.BihiziPatrick.recipeBlog.DTO;
 
-import com.perscholas.recipe.blog.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

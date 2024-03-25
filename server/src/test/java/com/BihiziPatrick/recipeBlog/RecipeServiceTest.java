@@ -7,7 +7,6 @@ import com.BihiziPatrick.recipeBlog.repositories.UserRepository;
 import com.BihiziPatrick.recipeBlog.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class RecipeBlogApplicationTests {
+class RecipeServiceTest {
 
 	@Autowired
 	RecipeRepository recipeRepository;
@@ -31,8 +30,6 @@ class RecipeBlogApplicationTests {
 
 	@Autowired
 	UserRepository userRepository;
-
-
 
 
 	@BeforeEach

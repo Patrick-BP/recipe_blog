@@ -1,10 +1,10 @@
-package com.perscholas.recipe.blog.services;
+package com.BihiziPatrick.recipeBlog.services;
 
-import com.perscholas.recipe.blog.DTO.UserResponseDTO;
-import com.perscholas.recipe.blog.exceptions.ResourceNotFoundException;
-import com.perscholas.recipe.blog.models.Role;
-import com.perscholas.recipe.blog.models.User;
-import com.perscholas.recipe.blog.repositories.UserRepository;
+import com.BihiziPatrick.recipeBlog.exceptions.ResourceNotFoundException;
+import com.BihiziPatrick.recipeBlog.repositories.UserRepository;
+import com.BihiziPatrick.recipeBlog.DTO.UserResponseDTO;
+import com.BihiziPatrick.recipeBlog.models.Role;
+import com.BihiziPatrick.recipeBlog.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

@@ -1,6 +1,5 @@
-package com.perscholas.recipe.blog.models;
+package com.BihiziPatrick.recipeBlog.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

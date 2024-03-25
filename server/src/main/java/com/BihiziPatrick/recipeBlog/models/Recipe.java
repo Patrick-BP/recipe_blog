@@ -1,4 +1,4 @@
-package com.perscholas.recipe.blog.models;
+package com.BihiziPatrick.recipeBlog.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,7 +6,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -28,7 +27,7 @@ public class Recipe {
     @Column(nullable = false)
     private String image;
     @Lob
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String ingredients;
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false, updatable = false)

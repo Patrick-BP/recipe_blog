@@ -1,7 +1,7 @@
-package com.perscholas.recipe.blog.services;
+package com.BihiziPatrick.recipeBlog.services;
 
-import com.perscholas.recipe.blog.models.Category;
-import com.perscholas.recipe.blog.repositories.CategoryRepository;
+import com.BihiziPatrick.recipeBlog.models.Category;
+import com.BihiziPatrick.recipeBlog.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

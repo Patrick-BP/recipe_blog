@@ -1,11 +1,11 @@
-package com.perscholas.recipe.blog.services;
+package com.BihiziPatrick.recipeBlog.services;
 
-import com.perscholas.recipe.blog.DTO.LoginResponseDTO;
-import com.perscholas.recipe.blog.DTO.UserResponseDTO;
-import com.perscholas.recipe.blog.models.Role;
-import com.perscholas.recipe.blog.models.User;
-import com.perscholas.recipe.blog.repositories.RoleRepository;
-import com.perscholas.recipe.blog.repositories.UserRepository;
+import com.BihiziPatrick.recipeBlog.repositories.RoleRepository;
+import com.BihiziPatrick.recipeBlog.repositories.UserRepository;
+import com.BihiziPatrick.recipeBlog.DTO.LoginResponseDTO;
+import com.BihiziPatrick.recipeBlog.DTO.UserResponseDTO;
+import com.BihiziPatrick.recipeBlog.models.Role;
+import com.BihiziPatrick.recipeBlog.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service

@@ -1,12 +1,10 @@
-package com.perscholas.recipe.blog.Controllers;
+package com.BihiziPatrick.recipeBlog.Controllers;
 
-import com.perscholas.recipe.blog.models.Category;
-import com.perscholas.recipe.blog.services.CategoryService;
+import com.BihiziPatrick.recipeBlog.services.CategoryService;
+import com.BihiziPatrick.recipeBlog.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

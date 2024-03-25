@@ -32,7 +32,7 @@ function Home() {
             setRecipes(response.data)
            
         }catch(error){
-            console.log(error);
+            console.log(error, "Unautorized");
         }
       
             
@@ -157,10 +157,18 @@ function Home() {
                 },
             });
           }).catch(error=>{
-            toast.error(error.response.data,{
+            if(error.response.status === 401){
+                toast.error("Unauthorized",{
+                    position: "top-center",
+                    autoClose: 3000,
+        });
+            }else{
+                     toast.error(error.response.message,{
                 position: "top-center",
                 autoClose: 3000,
-    });
+                 });
+            }
+       
           })
           }catch(error){
             console.log(error);

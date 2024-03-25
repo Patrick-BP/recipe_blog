@@ -1,10 +1,9 @@
-package com.perscholas.recipe.blog.services;
+package com.BihiziPatrick.recipeBlog.services;
 
-import com.perscholas.recipe.blog.DTO.RecipeResponseDTO;
-import com.perscholas.recipe.blog.models.Recipe;
-import com.perscholas.recipe.blog.models.User;
-import com.perscholas.recipe.blog.repositories.RecipeRepository;
-import com.perscholas.recipe.blog.repositories.UserRepository;
+import com.BihiziPatrick.recipeBlog.repositories.RecipeRepository;
+import com.BihiziPatrick.recipeBlog.repositories.UserRepository;
+import com.BihiziPatrick.recipeBlog.models.Recipe;
+import com.BihiziPatrick.recipeBlog.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,12 @@ public class RecipeService {
 
     @Autowired
     UserRepository userRepository;
+
+    public RecipeService(RecipeRepository recipeRepository, UserRepository userRepository) {
+        this.recipeRepository = recipeRepository;
+        this.userRepository = userRepository;
+    }
+
     public List<Recipe> getAllRecipes(){
         return recipeRepository.findAll();
     }

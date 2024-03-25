@@ -1,11 +1,10 @@
-package com.perscholas.recipe.blog.models;
+package com.BihiziPatrick.recipeBlog.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor

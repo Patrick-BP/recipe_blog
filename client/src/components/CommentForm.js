@@ -17,7 +17,7 @@ function CommentForm({recipeData, fetchComments}) {
                 fetchComments()
                 setComment("")
             }).catch(error=>{
-                console.log(error);
+                console.log(error, "Unauthorized");
             })
       } 
     return (  <>

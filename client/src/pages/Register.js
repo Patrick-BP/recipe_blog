@@ -70,12 +70,13 @@ const handleChanges = (e)=>{
             </div>
     </div>
     <div>
-        <input type="password" className="form-control" value={input.password} name="password" onChange={(e)=>handleChanges(e)} placeholder="Password" required/>   
+        <input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{3,}$" className="form-control" value={input.password} name="password" onChange={(e)=>handleChanges(e)} placeholder="Password" required/>   
             <div className="valid-feedback mb-5">
                 Looks good!
             </div>
             <div className="invalid-feedback mb-5">
-                Must provide a password
+                Must provide a password - At least 1 number, at least lowerCase letter, and at least 1 upperCase
+
             </div>
     </div>       
    

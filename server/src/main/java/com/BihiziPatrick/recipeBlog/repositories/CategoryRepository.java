@@ -1,6 +1,6 @@
-package com.perscholas.recipe.blog.repositories;
+package com.BihiziPatrick.recipeBlog.repositories;
 
-import com.perscholas.recipe.blog.models.Category;
+import com.BihiziPatrick.recipeBlog.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

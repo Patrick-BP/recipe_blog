@@ -1,23 +1,17 @@
-package com.perscholas.recipe.blog.services;
+package com.BihiziPatrick.recipeBlog.services;
 
-import com.perscholas.recipe.blog.DTO.CommentResponseDTO;
-import com.perscholas.recipe.blog.models.Comment;
-import com.perscholas.recipe.blog.models.Recipe;
-import com.perscholas.recipe.blog.repositories.CommentRepository;
-import com.perscholas.recipe.blog.repositories.RecipeRepository;
+import com.BihiziPatrick.recipeBlog.models.Comment;
+import com.BihiziPatrick.recipeBlog.models.Recipe;
+import com.BihiziPatrick.recipeBlog.repositories.CommentRepository;
+import com.BihiziPatrick.recipeBlog.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -26,6 +20,11 @@ public class CommentService {
     CommentRepository commentRepository;
     @Autowired
     private RecipeRepository recipeRepository;
+
+    public CommentService(CommentRepository commentRepository, RecipeRepository recipeRepository) {
+        this.commentRepository = commentRepository;
+        this.recipeRepository = recipeRepository;
+    }
 
     public ResponseEntity<String> newComment(Comment comment){
         System.out.println(comment);

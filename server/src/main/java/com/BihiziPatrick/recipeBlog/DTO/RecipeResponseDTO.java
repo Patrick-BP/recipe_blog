@@ -1,15 +1,13 @@
-package com.perscholas.recipe.blog.DTO;
+package com.BihiziPatrick.recipeBlog.DTO;
 
-import com.perscholas.recipe.blog.models.Category;
-import com.perscholas.recipe.blog.models.Role;
-import com.perscholas.recipe.blog.models.User;
+import com.BihiziPatrick.recipeBlog.models.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

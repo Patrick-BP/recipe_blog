@@ -1,4 +1,4 @@
-package com.perscholas.recipe.blog.DTO;
+package com.BihiziPatrick.recipeBlog.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
